@@ -44,6 +44,23 @@ HTTP_TIMEOUT = 12  # seconds
 DEFAULT_HEADERS = {"User-Agent": "waze-zxy-extractor/1.0"}
 
 
+# ------------------------------ Predefined regions ------------------------------
+
+REGIONS = {
+    "sydney": {
+        "name": "Greater Sydney",
+        "bbox": (150.50, 151.50, -34.20, -33.40)  # left, right, bottom, top
+    },
+    "nsw": {
+        "name": "New South Wales",
+        "bbox": (140.99, 153.64, -37.51, -28.15)
+    },
+    "australia": {
+        "name": "Australia",
+        "bbox": (112.92, 153.64, -43.65, -9.22)
+    }
+}
+
 # ------------------------------ Z/X/Y math ------------------------------
 
 @dataclass(frozen=True, order=True)
@@ -143,13 +160,19 @@ def load_settled_tiles(state_path: Path) -> Set[Tile]:
     if not state_path.exists():
         return set()
     raw = json.loads(state_path.read_text(encoding="utf-8"))
-    tiles = {Tile(**t) for t in raw.get("tiles", [])}
+    tiles = set()
+    for tile_str in raw.get("tiles", []):
+        try:
+            z, x, y = map(int, tile_str.split("/"))
+            tiles.add(Tile(z, x, y))
+        except (ValueError, TypeError):
+            print(f"Warning: Invalid tile format in state file: {tile_str}")
     return tiles
 
 
 def save_settled_tiles(state_path: Path, tiles: Set[Tile]) -> None:
     state_path.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"tiles": [asdict(t) for t in sorted(tiles)]}
+    payload = {"tiles": [f"{t.z}/{t.x}/{t.y}" for t in sorted(tiles)]}
     state_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
@@ -286,10 +309,17 @@ def extract_with_refinement(
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Waze Z/X/Y extractor with persistent settled tiles and on-the-fly refinement")
-    p.add_argument("--left", type=float, default=150.50, help="bbox left (lon)")
-    p.add_argument("--right", type=float, default=151.50, help="bbox right (lon)")
-    p.add_argument("--bottom", type=float, default=-34.20, help="bbox bottom (lat)")
-    p.add_argument("--top", type=float, default=-33.40, help="bbox top (lat)")
+    
+    # Region or custom bbox options
+    region_group = p.add_mutually_exclusive_group()
+    region_group.add_argument("--region", type=str, choices=list(REGIONS.keys()),
+                            help=f"Use a predefined region: {', '.join(REGIONS.keys())}")
+    bbox_group = region_group.add_argument_group("Custom bounding box")
+    bbox_group.add_argument("--left", type=float, help="bbox left (lon)")
+    bbox_group.add_argument("--right", type=float, help="bbox right (lon)")
+    bbox_group.add_argument("--bottom", type=float, help="bbox bottom (lat)")
+    bbox_group.add_argument("--top", type=float, help="bbox top (lat)")
+    
     p.add_argument("--base-zoom", type=int, default=12, help="base zoom for initial build if no state exists")
     p.add_argument("--max-zoom", type=int, default=17, help="max zoom to split tiles to during build/run")
     p.add_argument("--threshold", type=int, default=150, help="alerts >= threshold triggers split/refine")
@@ -302,7 +332,17 @@ def parse_args() -> argparse.Namespace:
 
 def main():
     args = parse_args()
-    bbox = (args.left, args.right, args.bottom, args.top)
+    
+    # Determine bbox from region or custom coordinates
+    if args.region:
+        region_info = REGIONS[args.region]
+        print(f"Using predefined region: {region_info['name']}")
+        bbox = region_info['bbox']
+    else:
+        if not all(x is not None for x in [args.left, args.right, args.bottom, args.top]):
+            print("Error: Must specify either --region or all bbox coordinates (--left, --right, --bottom, --top)")
+            sys.exit(1)
+        bbox = (args.left, args.right, args.bottom, args.top)
 
     # 1) Load or build settled tiles
     settled_tiles = load_settled_tiles(args.state_path)
