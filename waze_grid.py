@@ -334,7 +334,7 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def main():
+def main(return_alerts: bool = False):
     args = parse_args()
     
     # Determine bbox from region or custom coordinates
@@ -389,9 +389,13 @@ def main():
     out_path = save_alerts(args.out_dir, alerts_by_id)
     print(f"[Save] Alerts saved to {out_path}")
 
+    # Return alerts if requested (for use by other scripts)
+    if return_alerts:
+        return alerts_by_id
+
 
 if __name__ == "__main__":
     try:
-        main()
+        main(return_alerts=False)
     except KeyboardInterrupt:
         sys.exit(130)
