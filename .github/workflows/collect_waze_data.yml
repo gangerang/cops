@@ -26,7 +26,6 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
-          # cache-dependency-path: requirements.txt  # if you add one
 
       - name: Install dependencies
         run: |
@@ -41,19 +40,15 @@ jobs:
 
       - name: Bring forward settled tile state (if exists)
         run: |
-          if [ -f temp_data/settled_tiles.json ]; then
-            cp temp_data/settled_tiles.json settled_tiles.json
+          if [ -f temp_data/sydney_settled_tiles.json ]; then
+            cp temp_data/sydney_settled_tiles.json sydney_settled_tiles.json
           else
-            echo "No settled_tiles.json found from previous run."
+            echo "No sydney_settled_tiles.json found from previous run."
           fi
 
       - name: Collect Waze alerts
         run: |
-          # Ensure the output name here MATCHES what your extractor writes.
-          # If your extractor produces timestamped files, either:
-          #   1) pass a flag to force sydney_alerts.json, or
-          #   2) capture the generated name programmatically.
-          python waze_grid.py --region sydney --out-name sydney_alerts.json
+          python waze_json.py --region sydney --out-name sydney_alerts.json --state-path sydney_sydney_settled_tiles.json
 
       - name: Convert to police GeoJSON
         run: |
@@ -75,9 +70,9 @@ jobs:
           # Copy artifacts into the data branch working tree if they exist
           [ -f ../sydney_alerts.json ] && cp ../sydney_alerts.json . || true
           [ -f ../sydney_police.geojson ] && cp ../sydney_police.geojson . || true
-          [ -f ../settled_tiles.json ] && cp ../settled_tiles.json . || true
+          [ -f ../sydney_settled_tiles.json ] && cp ../sydney_settled_tiles.json . || true
 
-          git add sydney_alerts.json sydney_police.geojson settled_tiles.json || true
+          git add sydney_alerts.json sydney_police.geojson sydney_settled_tiles.json || true
           timestamp=$(date -u "+%Y-%m-%d %H:%M:%S UTC")
           git commit -m "Update Waze data - $timestamp" || echo "No changes to commit"
           git push origin data
