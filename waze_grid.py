@@ -49,15 +49,18 @@ DEFAULT_HEADERS = {"User-Agent": "waze-zxy-extractor/1.0"}
 REGIONS = {
     "sydney": {
         "name": "Greater Sydney",
-        "bbox": (150.6, 151.3, -34.20, -33.6)  # left, right, bottom, top
+        "bbox": (150.6, 151.3, -34.20, -33.6),  # left, right, bottom, top
+        "base_zoom": 9  # City level detail
     },
     "nsw": {
         "name": "New South Wales",
-        "bbox": (140.99, 153.64, -37.51, -28.15)
+        "bbox": (140.99, 153.64, -37.51, -28.15),
+        "base_zoom": 6  # State level detail
     },
     "australia": {
         "name": "Australia",
-        "bbox": (112.92, 153.64, -43.65, -9.22)
+        "bbox": (112.92, 153.64, -43.65, -10.5),
+        "base_zoom": 5   # Country level detail
     }
 }
 
@@ -320,9 +323,10 @@ def parse_args() -> argparse.Namespace:
     bbox_group.add_argument("--bottom", type=float, help="bbox bottom (lat)")
     bbox_group.add_argument("--top", type=float, help="bbox top (lat)")
     
-    p.add_argument("--base-zoom", type=int, default=12, help="base zoom for initial build if no state exists")
+    p.add_argument("--base-zoom", type=int, 
+                      help="base zoom for initial build if no state exists (defaults to region-specific value or 12)")
     p.add_argument("--max-zoom", type=int, default=17, help="max zoom to split tiles to during build/run")
-    p.add_argument("--threshold", type=int, default=150, help="alerts >= threshold triggers split/refine")
+    p.add_argument("--threshold", type=int, default=190, help="alerts >= threshold triggers split/refine")
     p.add_argument("--overlap-deg", type=float, default=0.002, help="small overlap (deg) to avoid edge misses")
     p.add_argument("--env", type=str, default="row", help="Waze env (row, usa, il, etc.)")
     p.add_argument("--state-path", type=Path, default=Path("./settled_tiles.json"), help="path to save/load settled tiles")
@@ -334,15 +338,21 @@ def main():
     args = parse_args()
     
     # Determine bbox from region or custom coordinates
+    # Set defaults based on region or use custom values
     if args.region:
         region_info = REGIONS[args.region]
         print(f"Using predefined region: {region_info['name']}")
         bbox = region_info['bbox']
+        if args.base_zoom is None:
+            args.base_zoom = region_info['base_zoom']
+            print(f"Using region's base zoom level: {args.base_zoom}")
     else:
         if not all(x is not None for x in [args.left, args.right, args.bottom, args.top]):
             print("Error: Must specify either --region or all bbox coordinates (--left, --right, --bottom, --top)")
             sys.exit(1)
         bbox = (args.left, args.right, args.bottom, args.top)
+        if args.base_zoom is None:
+            args.base_zoom = 8  # Default for custom regions
 
     # 1) Load or build settled tiles
     settled_tiles = load_settled_tiles(args.state_path)
