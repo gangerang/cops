@@ -1,0 +1,64 @@
+name: Collect Waze Data
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Run every 10 minutes
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  collect-and-convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for pushing to data branch
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Checkout data branch to temp directory
+        uses: actions/checkout@v3
+        with:
+          ref: data
+          path: temp_data
+
+      - name: Copy existing files from data branch if they exist
+        run: |
+          mkdir -p data
+          [ -f temp_data/settled_tiles.json ] && cp temp_data/settled_tiles.json settled_tiles.json || true
+
+      - name: Collect Waze alerts
+        run: |
+          python waze_grid.py --region sydney --out-name sydney_alerts.json
+
+      - name: Convert to police GeoJSON
+        run: |
+          python waze_police_geojson.py sydney_alerts.json sydney_police.geojson
+
+      - name: Configure Git for data branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push to data branch
+        run: |
+          cd temp_data
+          cp ../sydney_alerts.json .
+          cp ../sydney_police.geojson .
+          cp ../settled_tiles.json .
+          git add sydney_alerts.json sydney_police.geojson settled_tiles.json
+          timestamp=$(date -u "+%Y-%m-%d %H:%M:%S UTC")
+          git commit -m "Update Waze data - $timestamp" || echo "No changes to commit"
+          git push origin data
