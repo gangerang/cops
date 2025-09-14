@@ -1,68 +1,58 @@
 #!/usr/bin/env python3
 """
-Improved Waze query algorithm using Z/X/Y tiles and adaptive refinement
+Waze alerts extractor using Z/X/Y tiles with persistent "settled tiles" and on-the-fly refinement.
 
-What it does
-------------
-- Uses standard Web Mercator slippy tiles (Z/X/Y) to define query bounding boxes.
-- Starts from a base zoom and covers a target bbox (Sydney by default).
-- Runs cycles. In each cycle:
-  * Only tiles that were ABOVE the threshold in the previous cycle are queried.
-  * Tiles under the threshold are considered "settled" and not re-queried.
-  * Tiles at/above the threshold are split into their 4 children (Z+1) for the next cycle.
-- Prints per-tile status (count and whether it will be broken down).
-- Stops automatically when all tiles are under the threshold (i.e., no frontier tiles remain),
-  or when --max-cycles is reached (safety cap).
-
-Notes
------
-- This script focuses on the querying & refinement algorithm. It does not persist alerts.
-- You can persist the final settled tiles if you want to reuse the grid later (see TODO).
-- The Waze endpoint used: https://www.waze.com/live-map/api/georss?types=alerts&env=row&left=..&right=..&bottom=..&top=..
+Behavior
+--------
+- Uses Web Mercator slippy tiles (Z/X/Y) to define query bboxes.
+- If a saved settled tile list exists, uses it; otherwise, runs a refinement pass to build one.
+- On every run, queries all settled tiles to extract alerts.
+  * If any settled tile now returns >= threshold alerts, it is split (if z < max_zoom)
+    and its children are queried recursively until all children are under threshold
+    (or max_zoom is reached). The refined children replace the parent in the new
+    settled tile list for next runs.
+- Deduplicates alerts by `id` and saves them to a timestamped JSON file.
+- Saves the updated settled tiles to disk for future runs.
+- Prints per-tile status during querying.
 
 Requirements
 ------------
 pip install requests
 
-Usage
------
-python zxy_waze_refine.py \
-  --threshold 150 \
-  --base-zoom 12 \
-  --max-cycles 6
-
-Optional:
-  --left 150.50 --right 151.50 --bottom -34.20 --top -33.40  # custom bbox
-  --overlap-deg 0.002                                        # ~200m edge buffer
-  --env row                                                  # or usa, il, etc (Waze env)
+Example
+-------
+python waze_zxy_extract.py \
+  --left 150.50 --right 151.50 --bottom -34.20 --top -33.40 \
+  --base-zoom 12 --max-zoom 17 --threshold 150 --env row \
+  --state-path ./settled_tiles.json --out-dir ./out --overlap-deg 0.002
 """
 
 import argparse
+import json
 import math
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple
 
 import requests
+from datetime import datetime, timezone
 
 
 WAZE_URL = "https://www.waze.com/live-map/api/georss"
 HTTP_TIMEOUT = 12  # seconds
+DEFAULT_HEADERS = {"User-Agent": "waze-zxy-extractor/1.0"}
 
 
-# ------------------------------ Tile math ------------------------------
+# ------------------------------ Z/X/Y math ------------------------------
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Tile:
     z: int
     x: int
     y: int
 
     def children(self) -> Tuple["Tile", "Tile", "Tile", "Tile"]:
-        """
-        Return the 4 children of this tile at zoom z+1:
-        NW, NE, SW, SE (conventional layout for readability).
-        """
         z = self.z + 1
         X = self.x * 2
         Y = self.y * 2
@@ -76,7 +66,7 @@ class Tile:
 
 def tile_bounds_latlon(z: int, x: int, y: int) -> Tuple[float, float, float, float]:
     """
-    Returns (left, right, bottom, top) in lon/lat for a Web Mercator slippy tile.
+    Returns (left, right, bottom, top) in lon/lat for a slippy tile (Z/X/Y).
     """
     n = 2 ** z
 
@@ -84,7 +74,6 @@ def tile_bounds_latlon(z: int, x: int, y: int) -> Tuple[float, float, float, flo
         return x_ / n * 360.0 - 180.0
 
     def lat(y_: int) -> float:
-        # inverse Web Mercator
         t = math.pi * (1 - 2 * y_ / n)
         return math.degrees(math.atan(math.sinh(t)))
 
@@ -96,9 +85,6 @@ def tile_bounds_latlon(z: int, x: int, y: int) -> Tuple[float, float, float, flo
 
 
 def lonlat_to_tile_xy(z: int, lon: float, lat: float) -> Tuple[int, int]:
-    """
-    Convert lon/lat to slippy tile x,y at zoom z.
-    """
     n = 2 ** z
     x = int((lon + 180.0) / 360.0 * n)
     lat_rad = math.radians(lat)
@@ -108,27 +94,30 @@ def lonlat_to_tile_xy(z: int, lon: float, lat: float) -> Tuple[int, int]:
 
 def tiles_covering_bbox(z: int, left: float, right: float, bottom: float, top: float) -> List[Tile]:
     """
-    Return all tiles at zoom z that intersect the bbox (lon/lat).
+    All tiles at zoom z intersecting the bbox (lon/lat).
     """
-    x0, y0 = lonlat_to_tile_xy(z, left, top)      # northwest corner
-    x1, y1 = lonlat_to_tile_xy(z, right, bottom)  # southeast corner
-    # Ensure proper ordering
+    x0, y0 = lonlat_to_tile_xy(z, left, top)      # NW
+    x1, y1 = lonlat_to_tile_xy(z, right, bottom)  # SE
     x_min, x_max = min(x0, x1), max(x0, x1)
     y_min, y_max = min(y0, y1), max(y0, y1)
 
-    tiles = []
+    tiles: List[Tile] = []
     for x in range(x_min, x_max + 1):
         for y in range(y_min, y_max + 1):
             tiles.append(Tile(z, x, y))
     return tiles
 
 
+def tile_intersects_bbox(tile: Tile, left: float, right: float, bottom: float, top: float) -> bool:
+    l, r, b, t = tile_bounds_latlon(tile.z, tile.x, tile.y)
+    return (r >= left and l <= right and t >= bottom and b <= top)
+
+
 # ------------------------------ Waze API ------------------------------
 
-def query_waze_alerts(left: float, right: float, bottom: float, top: float, env: str) -> int:
+def query_waze_alerts(left: float, right: float, bottom: float, top: float, env: str) -> List[dict]:
     """
-    Query Waze alerts for a bbox; return the number of alerts (int).
-    We only care about counts for refinement decisions here.
+    Query Waze alerts for a bbox; returns the list of alert objects.
     """
     params = {
         "types": "alerts",
@@ -138,112 +127,176 @@ def query_waze_alerts(left: float, right: float, bottom: float, top: float, env:
         "bottom": f"{bottom:.10f}",
         "top": f"{top:.10f}",
     }
-    r = requests.get(WAZE_URL, params=params, timeout=HTTP_TIMEOUT)
+    r = requests.get(WAZE_URL, params=params, headers=DEFAULT_HEADERS, timeout=HTTP_TIMEOUT)
     r.raise_for_status()
     try:
         data = r.json()
     except requests.exceptions.JSONDecodeError:
-        # occasionally text; try manual
-        import json
         data = json.loads(r.text)
-    alerts = data.get("alerts", [])
-    return len(alerts)
+    alerts = data.get("alerts", []) if isinstance(data, dict) else []
+    return alerts
 
 
-# ------------------------------ Core algorithm ------------------------------
+# ------------------------------ Persistence ------------------------------
 
-def run_cycles(
-    sydney_bbox: Tuple[float, float, float, float],
+def load_settled_tiles(state_path: Path) -> Set[Tile]:
+    if not state_path.exists():
+        return set()
+    raw = json.loads(state_path.read_text(encoding="utf-8"))
+    tiles = {Tile(**t) for t in raw.get("tiles", [])}
+    return tiles
+
+
+def save_settled_tiles(state_path: Path, tiles: Set[Tile]) -> None:
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {"tiles": [asdict(t) for t in sorted(tiles)]}
+    state_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def save_alerts(out_dir: Path, alerts_by_id: Dict[str, dict]) -> Path:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    out_path = out_dir / f"waze_alerts_{ts}.json"
+    # Save as a flat list of alerts
+    data = {"generated_at": ts, "count": len(alerts_by_id), "alerts": list(alerts_by_id.values())}
+    out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return out_path
+
+
+# ------------------------------ Refinement helpers ------------------------------
+
+def clipped_bounds_with_overlap(tile: Tile, bbox: Tuple[float, float, float, float], overlap_deg: float) -> Tuple[float, float, float, float]:
+    left, right, bottom, top = bbox
+    l, r, b, t = tile_bounds_latlon(tile.z, tile.x, tile.y)
+    # clip to target bbox to avoid querying outside
+    l = max(l, left)
+    r = min(r, right)
+    b = max(b, bottom)
+    t = min(t, top)
+    # pad slightly to avoid edge misses
+    return (l - overlap_deg, r + overlap_deg, b - overlap_deg, t + overlap_deg)
+
+
+def refine_to_settled(
+    bbox: Tuple[float, float, float, float],
     base_zoom: int,
     threshold: int,
     overlap_deg: float,
     env: str,
-    max_cycles: int,
-) -> Tuple[Set[Tile], Dict[Tile, int]]:
+    max_zoom: int,
+) -> Set[Tile]:
     """
-    Run cycles of queries/refinement until all tiles are under threshold
-    or we hit max_cycles.
-
-    Returns:
-      settled_tiles: set of all tiles that ended under threshold
-      counts: dict of last known counts per tile (includes settled & last frontier queried)
+    Build a settled tile set from scratch by splitting tiles that exceed threshold
+    until all tiles are under threshold or max_zoom is reached.
     """
-    left, right, bottom, top = sydney_bbox
-
-    # Initial frontier: all tiles at base zoom that intersect the bbox
+    left, right, bottom, top = bbox
     frontier: Set[Tile] = set(tiles_covering_bbox(base_zoom, left, right, bottom, top))
     settled: Set[Tile] = set()
-    counts: Dict[Tile, int] = {}
 
-    for cycle in range(1, max_cycles + 1):
-        if not frontier:
-            print(f"\nAll tiles are under threshold. Stopping at start of cycle {cycle}.")
-            break
-
-        print(f"\n=== Cycle {cycle} | Querying {len(frontier)} tile(s) ===")
-
+    cycle = 1
+    while frontier:
+        print(f"\n[Build] Cycle {cycle} | Querying {len(frontier)} tile(s)")
         next_frontier: Set[Tile] = set()
 
-        for tile in sorted(frontier, key=lambda t: (t.z, t.x, t.y)):
-            l, r, b, ttop = tile_bounds_latlon(tile.z, tile.x, tile.y)
-
-            # Clip to target bbox to avoid querying outside your area (optional, keeps load down)
-            l = max(l, left)
-            r = min(r, right)
-            b = max(b, bottom)
-            ttop = min(ttop, top)
-
-            # Apply small overlap to avoid missing edge alerts
-            l -= overlap_deg
-            r += overlap_deg
-            b -= overlap_deg
-            ttop += overlap_deg
-
+        for tile in sorted(frontier):
+            l, r, b, t = clipped_bounds_with_overlap(tile, bbox, overlap_deg)
             try:
-                count = query_waze_alerts(l, r, b, ttop, env)
+                alerts = query_waze_alerts(l, r, b, t, env)
+                count = len(alerts)
             except Exception as e:
-                print(f"  z{tile.z}/{tile.x}/{tile.y} -> ERROR: {e}")
-                count = 0  # treat failures as zero to avoid infinite loops; you may want retries
+                print(f"  z{tile.z}/{tile.x}/{tile.y} -> ERROR during build: {e}")
+                count = 0
 
-            counts[tile] = count
-
-            if count >= threshold:
-                print(f"  z{tile.z}/{tile.x}/{tile.y} -> {count} alerts  | split -> 4 children next cycle")
-                # Only split if we can meaningfully refine: create 4 children
+            if count >= threshold and tile.z < max_zoom:
+                print(f"  z{tile.z}/{tile.x}/{tile.y} -> {count} | split for build")
                 for child in tile.children():
-                    # Only keep children that intersect our overall bbox
-                    cl, cr, cb, ct = tile_bounds_latlon(child.z, child.x, child.y)
-                    if (cr >= left and cl <= right and ct >= bottom and cb <= top):
+                    if tile_intersects_bbox(child, left, right, bottom, top):
                         next_frontier.add(child)
             else:
-                print(f"  z{tile.z}/{tile.x}/{tile.y} -> {count} alerts  | settled (no further queries)")
+                print(f"  z{tile.z}/{tile.x}/{tile.y} -> {count} | settled for build")
                 settled.add(tile)
 
-        frontier = next_frontier  # only tiles that were above threshold get re-queried
-        # Loop continues until frontier is empty or max_cycles reached
+        frontier = next_frontier
+        cycle += 1
 
-    if frontier:
-        print(f"\nReached max cycles ({max_cycles}) with {len(frontier)} frontier tile(s) still above threshold.")
-        # Optionally, you could add them to settled anyway, but typically you keep them separate
-    else:
-        print("\nRefinement complete. All tiles under threshold.")
-
-    return settled, counts
+    print(f"\n[Build] Settled tile count: {len(settled)}")
+    return settled
 
 
-# ------------------------------ CLI ------------------------------
+# ------------------------------ Extraction run ------------------------------
+
+def extract_with_refinement(
+    bbox: Tuple[float, float, float, float],
+    settled_tiles: Set[Tile],
+    threshold: int,
+    overlap_deg: float,
+    env: str,
+    max_zoom: int,
+) -> Tuple[Set[Tile], Dict[str, dict]]:
+    """
+    Query all settled tiles. If any returns >= threshold, split (if z < max_zoom) and
+    query children recursively until all children are under threshold. Returns the new
+    settled tile set and a dict of alerts by id (deduped).
+    """
+    left, right, bottom, top = bbox
+    alerts_by_id: Dict[str, dict] = {}
+    new_settled: Set[Tile] = set()
+
+    # Work queue starts with the currently settled tiles
+    stack: List[Tile] = list(sorted(settled_tiles))
+
+    print(f"\n[Run] Starting extraction on {len(stack)} settled tile(s)")
+    while stack:
+        tile = stack.pop()
+        l, r, b, t = clipped_bounds_with_overlap(tile, bbox, overlap_deg)
+
+        try:
+            alerts = query_waze_alerts(l, r, b, t, env)
+            count = len(alerts)
+        except Exception as e:
+            print(f"  z{tile.z}/{tile.x}/{tile.y} -> ERROR during run: {e}")
+            alerts = []
+            count = 0
+
+        # Deduplicate by 'id'
+        for a in alerts:
+            a_id = a.get("id")
+            if not a_id:
+                # Fallback: build a poor-man's id hash if missing
+                # (type + coords + pubMillis) to reduce dup risk
+                loc = a.get("location") or {}
+                a_id = f"{a.get('type','ALERT')}_{loc.get('x')}_{loc.get('y')}_{a.get('pubMillis')}"
+            alerts_by_id[a_id] = a
+
+        if count >= threshold and tile.z < max_zoom:
+            print(f"  z{tile.z}/{tile.x}/{tile.y} -> {count} alerts | split and re-query children")
+            for child in tile.children():
+                if tile_intersects_bbox(child, left, right, bottom, top):
+                    stack.append(child)
+        else:
+            status = "settled" if count < threshold else f"cap at z{tile.z} (max_zoom reached)"
+            print(f"  z{tile.z}/{tile.x}/{tile.y} -> {count} alerts | {status}")
+            new_settled.add(tile)
+
+    print(f"[Run] New settled tile count: {len(new_settled)} | deduped alerts: {len(alerts_by_id)}")
+    return new_settled, alerts_by_id
+
+
+# ------------------------------ CLI & Main ------------------------------
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Waze Z/X/Y tile-based adaptive query/refinement")
+    p = argparse.ArgumentParser(description="Waze Z/X/Y extractor with persistent settled tiles and on-the-fly refinement")
     p.add_argument("--left", type=float, default=150.50, help="bbox left (lon)")
     p.add_argument("--right", type=float, default=151.50, help="bbox right (lon)")
     p.add_argument("--bottom", type=float, default=-34.20, help="bbox bottom (lat)")
     p.add_argument("--top", type=float, default=-33.40, help="bbox top (lat)")
-    p.add_argument("--base-zoom", type=int, default=12, help="base zoom level for initial tiles")
-    p.add_argument("--threshold", type=int, default=150, help="split threshold (alerts >= threshold => split)")
-    p.add_argument("--overlap-deg", type=float, default=0.002, help="small overlap (degrees) to avoid edge misses")
+    p.add_argument("--base-zoom", type=int, default=12, help="base zoom for initial build if no state exists")
+    p.add_argument("--max-zoom", type=int, default=17, help="max zoom to split tiles to during build/run")
+    p.add_argument("--threshold", type=int, default=150, help="alerts >= threshold triggers split/refine")
+    p.add_argument("--overlap-deg", type=float, default=0.002, help="small overlap (deg) to avoid edge misses")
     p.add_argument("--env", type=str, default="row", help="Waze env (row, usa, il, etc.)")
-    p.add_argument("--max-cycles", type=int, default=6, help="safety cap on number of cycles")
+    p.add_argument("--state-path", type=Path, default=Path("./settled_tiles.json"), help="path to save/load settled tiles")
+    p.add_argument("--out-dir", type=Path, default=Path("./out"), help="directory to write timestamped alerts JSON")
     return p.parse_args()
 
 
@@ -251,28 +304,40 @@ def main():
     args = parse_args()
     bbox = (args.left, args.right, args.bottom, args.top)
 
-    settled, counts = run_cycles(
-        sydney_bbox=bbox,
-        base_zoom=args.base_zoom,
+    # 1) Load or build settled tiles
+    settled_tiles = load_settled_tiles(args.state_path)
+    if settled_tiles:
+        print(f"[Init] Loaded {len(settled_tiles)} settled tile(s) from {args.state_path}")
+    else:
+        print("[Init] No settled tiles found. Building a settled grid...")
+        settled_tiles = refine_to_settled(
+            bbox=bbox,
+            base_zoom=args.base_zoom,
+            threshold=args.threshold,
+            overlap_deg=args.overlap_deg,
+            env=args.env,
+            max_zoom=args.max_zoom,
+        )
+        save_settled_tiles(args.state_path, settled_tiles)
+        print(f"[Init] Saved initial settled tiles to {args.state_path}")
+
+    # 2) Run extraction with on-the-fly refinement of any tiles now over threshold
+    new_settled, alerts_by_id = extract_with_refinement(
+        bbox=bbox,
+        settled_tiles=settled_tiles,
         threshold=args.threshold,
         overlap_deg=args.overlap_deg,
         env=args.env,
-        max_cycles=args.max_cycles,
+        max_zoom=args.max_zoom,
     )
 
-    # Summary
-    print("\n--- Summary ---")
-    print(f"Settled tiles: {len(settled)}")
-    if settled:
-        # Show a few examples
-        examples = list(sorted(settled, key=lambda t: (t.z, t.x, t.y)))
-        for t in examples:
-            c = counts.get(t, -1)
-            print(f"  z{t.z}/{t.x}/{t.y} -> {c} alerts")
+    # 3) Persist updated settled tiles for next run
+    save_settled_tiles(args.state_path, new_settled)
+    print(f"[Save] Updated settled tiles saved to {args.state_path}")
 
-    # TODO (optional): persist the settled grid for future reuse (e.g., JSON file with z/x/y and last counts).
-    # You can later reload and ONLY query those tiles you care about (e.g., periodically sample),
-    # or use the settled set as your "operational grid" until conditions change.
+    # 4) Save deduplicated alerts with timestamped filename
+    out_path = save_alerts(args.out_dir, alerts_by_id)
+    print(f"[Save] Alerts saved to {out_path}")
 
 
 if __name__ == "__main__":
