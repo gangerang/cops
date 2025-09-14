@@ -32,7 +32,7 @@ def epoch_millis_to_iso(millis: Optional[int]) -> Optional[str]:
         return None
 
 
-def comments_min_max_ts(comments: Any) -> (Optional[str], Optional[str]):
+def comments_min_max_ts(comments: Any) -> tuple[Optional[str], Optional[str]]:
     if not isinstance(comments, list) or not comments:
         return None, None
     times = []
@@ -62,17 +62,24 @@ def alert_to_feature(alert: Dict) -> Optional[Dict]:
     pub_ts = epoch_millis_to_iso(alert.get("pubMillis"))
     c_first, c_last = comments_min_max_ts(alert.get("comments"))
 
-    # Prepare properties: copy scalar fields except 'location' and 'comments'
-    props = {}
-    for k, v in alert.items():
-        if k in ("location", "comments"):
-            continue
-        # keep original pubMillis, but add pub_ts separately
-        props[k] = v
-
-    props["pub_ts"] = pub_ts
-    props["comment_first_ts"] = c_first
-    props["comment_last_ts"] = c_last
+    # Only include specified properties
+    props = {
+        "id": alert.get("id"),
+        "city": alert.get("city", ""),
+        "street": alert.get("street", ""),
+        "reportRating": alert.get("reportRating"),
+        "reliability": alert.get("reliability"),
+        "confidence": alert.get("confidence"),
+        "type": alert.get("type"),
+        "subtype": alert.get("subtype"),
+        "nThumbsUp": alert.get("nThumbsUp"),
+        "pub_ts": pub_ts,
+        "comment_first_ts": c_first,
+        "comment_last_ts": c_last
+    }
+    
+    # Remove any None values
+    props = {k: v for k, v in props.items() if v is not None}
 
     feature = {
         "type": "Feature",
