@@ -41,7 +41,7 @@ from datetime import datetime, timezone
 
 WAZE_URL = "https://www.waze.com/live-map/api/georss"
 HTTP_TIMEOUT = 12  # seconds
-DEFAULT_HEADERS = {"User-Agent": "waze-zxy-extractor/1.0"}
+DEFAULT_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:142.0) Gecko/20100101 Firefox/142.0"}
 
 
 # ------------------------------ Predefined regions ------------------------------
