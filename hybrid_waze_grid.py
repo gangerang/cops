@@ -51,7 +51,7 @@ WAZE_PARAMS_TEMPLATE = {
 }
 
 # Hybrid logic tuning
-SPLIT_THRESHOLD = 150       # split when count >= this
+SPLIT_THRESHOLD = 190       # split when count >= this
 MERGE_THRESHOLD = 50        # (optional) merge if all 4 kids are quiet; basic support provided
 MIN_TILE_WIDTH_DEG  = 0.02  # ~2km lon at Sydney lat
 MIN_TILE_HEIGHT_DEG = 0.02  # ~2km lat
@@ -137,18 +137,22 @@ def save_grid_state(tiles: List[Tile]) -> None:
     with open(GRID_STATE_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
-def split_tile(tile: Tile) -> List[Tile]:
-    midx = (tile.left + tile.right) / 2.0
-    midy = (tile.bottom + tile.top) / 2.0
-    lvl = tile.level + 1
-    base_id = tile.id
-
-    return [
-        Tile(id=f"{base_id}_NW", left=tile.left, right=midx, bottom=midy, top=tile.top, level=lvl),
-        Tile(id=f"{base_id}_NE", left=midx, right=tile.right, bottom=midy, top=tile.top, level=lvl),
-        Tile(id=f"{base_id}_SW", left=tile.left, right=midx, bottom=tile.bottom, top=midy, level=lvl),
-        Tile(id=f"{base_id}_SE", left=midx, right=tile.right, bottom=tile.bottom, top=midy, level=lvl),
-    ]
+def split_tile(t: Tile) -> List[Tile]:
+    new_level = t.level + 1
+    mid_x = (t.left + t.right) / 2
+    mid_y = (t.bottom + t.top) / 2
+    
+    nw = Tile(f"{t.id}_NW", left=t.left, right=mid_x, bottom=mid_y, top=t.top, level=new_level)
+    ne = Tile(f"{t.id}_NE", left=mid_x, right=t.right, bottom=mid_y, top=t.top, level=new_level)
+    sw = Tile(f"{t.id}_SW", left=t.left, right=mid_x, bottom=t.bottom, top=mid_y, level=new_level)
+    se = Tile(f"{t.id}_SE", left=mid_x, right=t.right, bottom=t.bottom, top=mid_y, level=new_level)
+    
+    # Initialize new tiles
+    for new_tile in [nw, ne, sw, se]:
+        new_tile.last_count = 0  # Force first query
+        new_tile.split_next = False  # Start with split_next False
+        
+    return [nw, ne, sw, se]
 
 def tile_too_small(tile: Tile) -> bool:
     return tile.width <= MIN_TILE_WIDTH_DEG or tile.height <= MIN_TILE_HEIGHT_DEG
@@ -302,9 +306,24 @@ def poll_once(tiles: List[Tile], multi_cycle: bool = False) -> Tuple[List[Tile],
     any_splits = False
 
     for i, t in enumerate(tiles, 1):
-        # Skip tiles that were previously quiet in multi-cycle mode
-        if multi_cycle and t.last_count < SPLIT_THRESHOLD and t.level > 0:
-            print(f"[{i}/{len(tiles)}] Skipping quiet tile {t.id} (level {t.level}, last count: {t.last_count})")
+        # Initialize last_count and split_next if not present
+        if not hasattr(t, 'last_count'):
+            t.last_count = 0
+        if not hasattr(t, 'split_next'):
+            t.split_next = False
+            
+        # In multi-cycle mode, only query if:
+        # 1. It's a level 0 (base) tile OR
+        # 2. It's a new tile (last_count = 0) OR
+        # 3. It was marked for splitting in the last cycle (split_next = True)
+        should_query = (
+            t.level == 0 or              # Base tiles always queried
+            t.last_count == 0 or         # New tiles need to be queried
+            t.split_next                 # Tiles marked for splitting
+        )
+        
+        if multi_cycle and not should_query:
+            print(f"[{i}/{len(tiles)}] Skipping stable tile {t.id} (level {t.level}, last count: {t.last_count})")
             next_tiles.append(t)
             continue
 
@@ -341,6 +360,8 @@ def poll_once(tiles: List[Tile], multi_cycle: bool = False) -> Tuple[List[Tile],
         if t.split_next and not tile_too_small(t):
             refined_tiles.extend(split_tile(t))
         else:
+            # Reset split_next if we're not splitting this tile
+            t.split_next = False
             refined_tiles.append(t)
 
     return refined_tiles, all_alerts, any_splits
