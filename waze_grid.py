@@ -49,7 +49,7 @@ DEFAULT_HEADERS = {"User-Agent": "waze-zxy-extractor/1.0"}
 REGIONS = {
     "sydney": {
         "name": "Greater Sydney",
-        "bbox": (150.50, 151.50, -34.20, -33.40)  # left, right, bottom, top
+        "bbox": (150.6, 151.3, -34.20, -33.6)  # left, right, bottom, top
     },
     "nsw": {
         "name": "New South Wales",
