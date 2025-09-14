@@ -179,10 +179,14 @@ def save_settled_tiles(state_path: Path, tiles: Set[Tile]) -> None:
     state_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
-def save_alerts(out_dir: Path, alerts_by_id: Dict[str, dict]) -> Path:
+def save_alerts(out_dir: Path, alerts_by_id: Dict[str, dict], filename_format: str = "waze_alerts_{ts}.json") -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    out_path = out_dir / f"waze_alerts_{ts}.json"
+    
+    # Replace timestamp placeholder in filename format
+    filename = filename_format.format(ts=ts)
+    out_path = out_dir / filename
+    
     # Save as a flat list of alerts
     data = {"generated_at": ts, "count": len(alerts_by_id), "alerts": list(alerts_by_id.values())}
     out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -330,7 +334,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--overlap-deg", type=float, default=0.002, help="small overlap (deg) to avoid edge misses")
     p.add_argument("--env", type=str, default="row", help="Waze env (row, usa, il, etc.)")
     p.add_argument("--state-path", type=Path, default=Path("./settled_tiles.json"), help="path to save/load settled tiles")
-    p.add_argument("--out-dir", type=Path, default=Path("./out"), help="directory to write timestamped alerts JSON")
+    p.add_argument("--out-dir", type=Path, default=Path("./out"), help="directory to write alerts JSON")
+    p.add_argument("--out-name", type=str, default="waze_alerts_{ts}.json",
+                  help="output filename format. Use {ts} for timestamp placeholder (default: waze_alerts_{ts}.json)")
     return p.parse_args()
 
 
@@ -385,8 +391,8 @@ def main(return_alerts: bool = False):
     save_settled_tiles(args.state_path, new_settled)
     print(f"[Save] Updated settled tiles saved to {args.state_path}")
 
-    # 4) Save deduplicated alerts with timestamped filename
-    out_path = save_alerts(args.out_dir, alerts_by_id)
+    # 4) Save deduplicated alerts
+    out_path = save_alerts(args.out_dir, alerts_by_id, args.out_name)
     print(f"[Save] Alerts saved to {out_path}")
 
     # Return alerts if requested (for use by other scripts)
