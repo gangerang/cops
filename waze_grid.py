@@ -265,7 +265,7 @@ def main():
     print(f"Settled tiles: {len(settled)}")
     if settled:
         # Show a few examples
-        examples = list(sorted(settled, key=lambda t: (t.z, t.x, t.y)))[:10]
+        examples = list(sorted(settled, key=lambda t: (t.z, t.x, t.y)))
         for t in examples:
             c = counts.get(t, -1)
             print(f"  z{t.z}/{t.x}/{t.y} -> {c} alerts")
