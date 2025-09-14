@@ -48,7 +48,11 @@ jobs:
 
       - name: Collect Waze alerts
         run: |
-          python waze_json.py --region sydney --out-name sydney_alerts.json --state-path sydney_sydney_settled_tiles.json
+            python waze_json.py \
+            --region sydney \
+            --out-name sydney_alerts.json \
+            --state-path sydney_settled_tiles.json \
+            --out-dir ./
 
       - name: Convert to police GeoJSON
         run: |
