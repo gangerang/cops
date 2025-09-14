@@ -1,8 +1,8 @@
 name: Collect Waze Data Sydney
 
 on:
-  schedule:
-    - cron: '*/10 * * * *' # UTC
+  # schedule:
+  #   - cron: '*/10 * * * *' # UTC
   workflow_dispatch:
 
 concurrency:
