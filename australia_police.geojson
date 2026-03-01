@@ -27,6 +27,48 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          151.210239,
+          -33.839272
+        ]
+      },
+      "properties": {
+        "id": "alert-214131917/e2805b4d-b3b3-46d6-bbc2-c8ca1a04ac81",
+        "city": "North Sydney",
+        "street": "Mount St",
+        "reportRating": 3,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:53:29Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.921055,
+          -27.565104
+        ]
+      },
+      "properties": {
+        "id": "alert-214092961/07fd48fe-f33a-4560-89af-9e58eaca1275",
+        "city": "Newtown 4350",
+        "street": "Glenvale Rd",
+        "reportRating": 3,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:43:07Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           151.206563,
           -33.897025
         ]
@@ -36,11 +78,14 @@
         "city": "Waterloo",
         "street": "Elizabeth St",
         "reportRating": 2,
-        "reliability": 5,
-        "confidence": 0,
+        "reliability": 9,
+        "confidence": 1,
         "type": "POLICE",
         "subtype": "",
-        "pub_ts": "2026-03-01T17:18:52Z"
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T17:18:52Z",
+        "comment_first_ts": "2026-03-01T17:42:28Z",
+        "comment_last_ts": "2026-03-01T17:48:31Z"
       }
     },
     {
@@ -48,20 +93,269 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.234285,
-          -33.929057
+          151.185704,
+          -33.89275
         ]
       },
       "properties": {
-        "id": "alert-214000207/55fdc343-e749-43a4-af78-c0b63109316f",
-        "city": "Kingsford",
-        "street": "Anzac Pde",
-        "reportRating": 0,
-        "reliability": 6,
+        "id": "alert-214057766/4708bec0-ad11-4093-9baa-f98e6f8b22de",
+        "city": "Newtown",
+        "street": "A36 - King St",
+        "reportRating": 1,
+        "reliability": 8,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T17:33:49Z",
+        "comment_first_ts": "2026-03-01T17:40:34Z",
+        "comment_last_ts": "2026-03-01T17:54:32Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.879604,
+          -31.962395
+        ]
+      },
+      "properties": {
+        "id": "alert-214083038/35a2ecd0-0c14-48a3-a495-7c20d088c41c",
+        "city": "",
+        "street": "SR5 - Causeway",
+        "reportRating": 2,
+        "reliability": 7,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
-        "pub_ts": "2026-03-01T17:07:46Z"
+        "pub_ts": "2026-03-01T17:44:51Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.03486,
+          -33.945326
+        ]
+      },
+      "properties": {
+        "id": "alert-214274091/85feaa1e-a920-4689-932d-ea6295f79ddb",
+        "city": "Padstow",
+        "street": "A6 - Davies Rd",
+        "reportRating": 3,
+        "reliability": 8,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T17:49:41Z",
+        "comment_first_ts": "2026-03-01T17:51:13Z",
+        "comment_last_ts": "2026-03-01T17:54:42Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.005724,
+          -33.934252
+        ]
+      },
+      "properties": {
+        "id": "alert-214169985/785919a9-e496-4af6-98c3-f6e0bf7c9c75",
+        "city": "Bankstown Aerodrome",
+        "street": "A34 - Milperra Rd",
+        "reportRating": 1,
+        "reliability": 9,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:44:14Z",
+        "comment_first_ts": "2026-03-01T17:50:20Z",
+        "comment_last_ts": "2026-03-01T17:50:20Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.060891,
+          -33.837315
+        ]
+      },
+      "properties": {
+        "id": "alert-214146309/d5d07346-1c27-4bab-9d88-25ff9999d16c",
+        "city": "Newington",
+        "street": "Avenue of Oceania",
+        "reportRating": 2,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:51:43Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.056479,
+          -33.845985
+        ]
+      },
+      "properties": {
+        "id": "alert-214048786/1a6f797a-d1db-40db-9d70-b0cd129e5d6e",
+        "city": "Sydney Olympic Park",
+        "street": "Hill Rd",
+        "reportRating": 1,
+        "reliability": 7,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:46:52Z",
+        "comment_first_ts": "2026-03-01T17:49:16Z",
+        "comment_last_ts": "2026-03-01T17:49:16Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.060437,
+          -33.83876
+        ]
+      },
+      "properties": {
+        "id": "alert-214136695/80613ca3-ef54-410a-8a9e-c002b57519c8",
+        "city": "Sydney Olympic Park",
+        "street": "Hill Rd",
+        "reportRating": 3,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:50:35Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.052608,
+          -33.812655
+        ]
+      },
+      "properties": {
+        "id": "alert-214112003/1c5786bb-f358-4e58-b41a-d3d041638bea",
+        "city": "Rydalmere",
+        "street": "A6 - Silverwater Rd",
+        "reportRating": 3,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:45:42Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.052754,
+          -33.812546
+        ]
+      },
+      "properties": {
+        "id": "alert-212150309/f43657e8-6eb0-4c0e-99cc-ce711c25b925",
+        "city": "Ermington",
+        "street": "A6 - Silverwater Rd",
+        "reportRating": 3,
+        "reliability": 10,
+        "confidence": 5,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 50,
+        "pub_ts": "2026-03-01T10:53:56Z",
+        "comment_first_ts": "2026-03-01T10:59:31Z",
+        "comment_last_ts": "2026-03-01T17:54:41Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.921142,
+          -33.959947
+        ]
+      },
+      "properties": {
+        "id": "alert-214003220/146a0484-6df2-4a23-aead-7964e1a8c75c",
+        "city": "Moorebank",
+        "street": "Moorebank Av",
+        "reportRating": 2,
+        "reliability": 8,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:37:26Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.915471,
+          -33.918331
+        ]
+      },
+      "properties": {
+        "id": "alert-214052159/88121c52-d5ab-4380-b443-234b247ddc31",
+        "city": "Liverpool",
+        "street": "Elizabeth Dr",
+        "reportRating": 1,
+        "reliability": 9,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T17:30:04Z",
+        "comment_first_ts": "2026-03-01T17:38:33Z",
+        "comment_last_ts": "2026-03-01T17:52:12Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.863529,
+          -34.01573
+        ]
+      },
+      "properties": {
+        "id": "alert-214031954/1b54661c-e061-4bf6-b587-663c90e07021",
+        "city": "Minto",
+        "street": "Collins Prom",
+        "reportRating": 1,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:27:13Z"
       }
     },
     {
@@ -114,23 +408,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          150.907783,
-          -33.914135
+          150.853264,
+          -33.823548
         ]
       },
       "properties": {
-        "id": "alert-214004971/3e041ea8-c4a5-47d5-9d64-614c003b3a0e",
-        "city": "Liverpool",
-        "street": "Elizabeth Dr",
+        "id": "alert-214214369/8dbff88e-8618-4049-8bc5-d75c6274d84d",
+        "city": "Horsley Park",
+        "street": "Wallgrove Rd",
         "reportRating": 0,
-        "reliability": 10,
+        "reliability": 7,
         "confidence": 0,
         "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 3,
-        "pub_ts": "2026-03-01T17:06:16Z",
-        "comment_first_ts": "2026-03-01T17:11:58Z",
-        "comment_last_ts": "2026-03-01T17:22:48Z"
+        "subtype": "POLICE_HIDING",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:48:06Z",
+        "comment_first_ts": "2026-03-01T17:52:17Z",
+        "comment_last_ts": "2026-03-01T17:52:17Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.875669,
+          -33.773741
+        ]
+      },
+      "properties": {
+        "id": "alert-214155906/82964cc4-d33e-4e8c-9c3f-ba64a625cea5",
+        "city": "Doonside",
+        "street": "Shortland Pl",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:50:11Z"
       }
     },
     {
@@ -147,14 +462,14 @@
         "city": "Quakers Hill",
         "street": "Quakers Hill Pwy",
         "reportRating": 1,
-        "reliability": 9,
-        "confidence": 2,
+        "reliability": 10,
+        "confidence": 3,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 4,
+        "nThumbsUp": 7,
         "pub_ts": "2026-03-01T14:13:16Z",
         "comment_first_ts": "2026-03-01T14:21:33Z",
-        "comment_last_ts": "2026-03-01T17:29:24Z"
+        "comment_last_ts": "2026-03-01T17:50:25Z"
       }
     },
     {
@@ -162,20 +477,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.969495,
-          -31.957466
+          115.974218,
+          -32.092354
         ]
       },
       "properties": {
-        "id": "alert-213984485/d9d4a233-9cb2-4155-a021-946f06ff6eca",
-        "city": "Perth Airport",
-        "street": "",
-        "reportRating": 0,
+        "id": "alert-213993250/f8195adf-7857-47fc-837b-340655726cac",
+        "city": "Gosnells",
+        "street": "Southern River Rd",
+        "reportRating": 2,
         "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
-        "pub_ts": "2026-03-01T17:00:42Z"
+        "pub_ts": "2026-03-01T17:36:30Z"
       }
     },
     {
@@ -196,10 +511,10 @@
         "confidence": 5,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 20,
+        "nThumbsUp": 33,
         "pub_ts": "2026-03-01T14:45:33Z",
         "comment_first_ts": "2026-03-01T15:24:04Z",
-        "comment_last_ts": "2026-03-01T17:24:24Z"
+        "comment_last_ts": "2026-03-01T17:53:43Z"
       }
     },
     {
@@ -207,23 +522,23 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          153.121663,
-          -27.668368
+          153.121572,
+          -27.676056
         ]
       },
       "properties": {
-        "id": "alert-212202853/74bb5cf8-ee61-4d5c-b022-6c2eef24375c",
+        "id": "alert-214073420/7cfc0412-32e9-45b7-a79b-c3717c239f5d",
         "city": "Loganlea",
         "street": "SR95 - Kingston Rd",
-        "reportRating": 1,
-        "reliability": 10,
-        "confidence": 5,
+        "reportRating": 5,
+        "reliability": 8,
+        "confidence": 0,
         "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 48,
-        "pub_ts": "2026-03-01T11:24:24Z",
-        "comment_first_ts": "2026-03-01T11:26:02Z",
-        "comment_last_ts": "2026-03-01T17:12:06Z"
+        "subtype": "",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:46:49Z",
+        "comment_first_ts": "2026-03-01T17:55:12Z",
+        "comment_last_ts": "2026-03-01T17:55:12Z"
       }
     },
     {
@@ -240,14 +555,14 @@
         "city": "Kingston",
         "street": "M6 - Logan Mwy",
         "reportRating": 2,
-        "reliability": 8,
-        "confidence": 1,
+        "reliability": 10,
+        "confidence": 4,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 3,
+        "nThumbsUp": 10,
         "pub_ts": "2026-03-01T17:12:27Z",
         "comment_first_ts": "2026-03-01T17:17:46Z",
-        "comment_last_ts": "2026-03-01T17:31:28Z"
+        "comment_last_ts": "2026-03-01T17:54:23Z"
       }
     },
     {
@@ -268,10 +583,10 @@
         "confidence": 5,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 15,
+        "nThumbsUp": 22,
         "pub_ts": "2026-03-01T16:45:58Z",
         "comment_first_ts": "2026-03-01T16:46:39Z",
-        "comment_last_ts": "2026-03-01T17:31:51Z"
+        "comment_last_ts": "2026-03-01T17:49:11Z"
       }
     },
     {
@@ -279,44 +594,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          153.111588,
-          -27.501605
+          153.065964,
+          -27.548363
         ]
       },
       "properties": {
-        "id": "alert-213853790/0ee4ae57-4fb3-4827-ad5b-b9b9ef368b78",
-        "city": "Carindale",
-        "street": "SR22 - Old Cleveland Rd",
-        "reportRating": 0,
-        "reliability": 8,
-        "confidence": 1,
-        "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 3,
-        "pub_ts": "2026-03-01T17:03:47Z",
-        "comment_first_ts": "2026-03-01T17:10:16Z",
-        "comment_last_ts": "2026-03-01T17:16:10Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          152.995848,
-          -27.73539
-        ]
-      },
-      "properties": {
-        "id": "alert-214034287/fcc05644-ab81-4dd6-9ba3-ed385a254391",
-        "city": "Greenbank",
-        "street": "Lotus Ct",
+        "id": "alert-214189267/5101e321-d717-4dab-b945-93728668c7a7",
+        "city": "Upper Mount Gravatt",
+        "street": "Exit 11: Klumpp Rd / SR36 - Mains Rd to MR2",
         "reportRating": 0,
         "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
-        "pub_ts": "2026-03-01T17:02:16Z"
+        "pub_ts": "2026-03-01T17:43:27Z"
       }
     },
     {
@@ -337,10 +628,10 @@
         "confidence": 5,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 15,
+        "nThumbsUp": 16,
         "pub_ts": "2026-03-01T12:17:42Z",
         "comment_first_ts": "2026-03-01T12:20:41Z",
-        "comment_last_ts": "2026-03-01T17:11:50Z"
+        "comment_last_ts": "2026-03-01T17:45:41Z"
       }
     },
     {
@@ -348,23 +639,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          152.703982,
-          -27.658375
+          153.064532,
+          -27.570001
         ]
       },
       "properties": {
-        "id": "alert-212809070/71976803-a072-41a9-a9a5-bd60f00ca998",
-        "city": "Purga",
-        "street": "NH15 - Cunningham Hwy",
-        "reportRating": 1,
-        "reliability": 8,
+        "id": "alert-214093236/f84ea94a-6c13-46f5-9d62-34879b207615",
+        "city": "MacGregor",
+        "street": "SR36 - Mains Rd",
+        "reportRating": 0,
+        "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 1,
-        "pub_ts": "2026-03-01T13:23:59Z",
-        "comment_first_ts": "2026-03-01T17:12:01Z",
-        "comment_last_ts": "2026-03-01T17:12:01Z"
+        "pub_ts": "2026-03-01T17:46:16Z"
       }
     },
     {
@@ -381,14 +669,38 @@
         "city": "Purga",
         "street": "NH15 - Cunningham Hwy",
         "reportRating": 2,
-        "reliability": 8,
-        "confidence": 1,
+        "reliability": 10,
+        "confidence": 2,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 5,
+        "pub_ts": "2026-03-01T15:08:28Z",
+        "comment_first_ts": "2026-03-01T16:37:51Z",
+        "comment_last_ts": "2026-03-01T17:45:38Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          152.703982,
+          -27.658375
+        ]
+      },
+      "properties": {
+        "id": "alert-212809070/71976803-a072-41a9-a9a5-bd60f00ca998",
+        "city": "Purga",
+        "street": "NH15 - Cunningham Hwy",
+        "reportRating": 1,
+        "reliability": 10,
+        "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
         "nThumbsUp": 3,
-        "pub_ts": "2026-03-01T15:08:28Z",
-        "comment_first_ts": "2026-03-01T16:37:51Z",
-        "comment_last_ts": "2026-03-01T17:27:07Z"
+        "pub_ts": "2026-03-01T13:23:59Z",
+        "comment_first_ts": "2026-03-01T17:12:01Z",
+        "comment_last_ts": "2026-03-01T17:51:58Z"
       }
     },
     {
@@ -429,11 +741,14 @@
         "city": "Greenway",
         "street": "Drakeford Dr",
         "reportRating": 2,
-        "reliability": 5,
-        "confidence": 0,
+        "reliability": 8,
+        "confidence": 1,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T15:24:28Z"
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T15:24:28Z",
+        "comment_first_ts": "2026-03-01T17:44:19Z",
+        "comment_last_ts": "2026-03-01T17:48:14Z"
       }
     },
     {
@@ -454,10 +769,10 @@
         "confidence": 5,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 18,
+        "nThumbsUp": 19,
         "pub_ts": "2026-03-01T10:39:59Z",
         "comment_first_ts": "2026-03-01T10:58:25Z",
-        "comment_last_ts": "2026-03-01T17:32:08Z"
+        "comment_last_ts": "2026-03-01T17:37:15Z"
       }
     },
     {
@@ -495,11 +810,14 @@
         "city": "Officer",
         "street": "C101 - Princes Hwy",
         "reportRating": 0,
-        "reliability": 5,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T17:20:18Z"
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:20:18Z",
+        "comment_first_ts": "2026-03-01T17:52:33Z",
+        "comment_last_ts": "2026-03-01T17:52:33Z"
       }
     },
     {
@@ -516,7 +834,7 @@
         "city": "Dandenong South",
         "street": "Quality Dr",
         "reportRating": 1,
-        "reliability": 5,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
@@ -528,68 +846,23 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          145.248064,
-          -38.026104
+          145.234448,
+          -38.107065
         ]
       },
       "properties": {
-        "id": "alert-213928663/9d014f51-278f-4c0e-9b25-4b5aa49ba9a3",
-        "city": "Hampton Park",
-        "street": "SR12 - Pound Rd",
-        "reportRating": 1,
-        "reliability": 8,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "",
-        "pub_ts": "2026-03-01T17:26:00Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          145.267589,
-          -38.028311
-        ]
-      },
-      "properties": {
-        "id": "alert-214041681/a1aa91ba-4cc3-4e90-ac20-9412a85b331a",
-        "city": "Hampton Park",
-        "street": "SR12 - Pound Rd",
-        "reportRating": 1,
-        "reliability": 7,
+        "id": "alert-214018256/d2d9f756-1dd5-4719-9904-91923c33ad51",
+        "city": "Cranbourne West",
+        "street": "B664 - Hall Rd",
+        "reportRating": 0,
+        "reliability": 9,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
         "nThumbsUp": 1,
-        "pub_ts": "2026-03-01T17:24:20Z",
-        "comment_first_ts": "2026-03-01T17:33:14Z",
-        "comment_last_ts": "2026-03-01T17:33:14Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          145.200011,
-          -38.00222
-        ]
-      },
-      "properties": {
-        "id": "alert-213798385/95361710-11af-42cc-b399-f95d0bd252d3",
-        "city": "Dandenong South",
-        "street": "SR49 - Dandenong Bypa",
-        "reportRating": 1,
-        "reliability": 7,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 1,
-        "pub_ts": "2026-03-01T16:52:42Z",
-        "comment_first_ts": "2026-03-01T17:23:22Z",
-        "comment_last_ts": "2026-03-01T17:23:22Z"
+        "pub_ts": "2026-03-01T17:38:14Z",
+        "comment_first_ts": "2026-03-01T17:40:41Z",
+        "comment_last_ts": "2026-03-01T17:40:41Z"
       }
     },
     {
@@ -606,7 +879,7 @@
         "city": "Noble Park",
         "street": "Noble St",
         "reportRating": 1,
-        "reliability": 5,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
@@ -627,11 +900,14 @@
         "city": "Mentone",
         "street": "SR10 - Lower Dandenong Rd",
         "reportRating": 2,
-        "reliability": 5,
-        "confidence": 0,
+        "reliability": 7,
+        "confidence": 1,
         "type": "POLICE",
         "subtype": "POLICE_HIDING",
-        "pub_ts": "2026-03-01T17:12:50Z"
+        "nThumbsUp": 2,
+        "pub_ts": "2026-03-01T17:12:50Z",
+        "comment_first_ts": "2026-03-01T17:36:19Z",
+        "comment_last_ts": "2026-03-01T17:55:02Z"
       }
     },
     {
@@ -639,20 +915,23 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          145.081753,
-          -37.595077
+          145.104539,
+          -37.957075
         ]
       },
       "properties": {
-        "id": "alert-213989724/0172754e-89b5-46d5-aa94-0e2e9deea46d",
-        "city": "Mernda",
-        "street": "Neptune Tce",
-        "reportRating": 2,
-        "reliability": 5,
+        "id": "alert-214219591/0097f0c5-b0de-40da-b0c3-f80e211f0071",
+        "city": "Heatherton",
+        "street": "SR87 - Dingley Bypa",
+        "reportRating": 4,
+        "reliability": 8,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
-        "pub_ts": "2026-03-01T17:02:43Z"
+        "nThumbsUp": 2,
+        "pub_ts": "2026-03-01T17:50:04Z",
+        "comment_first_ts": "2026-03-01T17:51:37Z",
+        "comment_last_ts": "2026-03-01T17:53:08Z"
       }
     },
     {
@@ -768,44 +1047,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          144.915089,
-          -37.700546
+          144.915081,
+          -37.700376
         ]
       },
       "properties": {
-        "id": "alert-213873949/ebab96b3-79c6-4940-884c-576a41142e5c",
+        "id": "alert-213943700/e7886abf-b3b8-4569-85a9-425fdcf410aa",
         "city": "Glenroy",
         "street": "SR35 - Pascoe Vale Rd",
-        "reportRating": 3,
-        "reliability": 6,
-        "confidence": 0,
+        "reportRating": 0,
+        "reliability": 8,
+        "confidence": 1,
         "type": "POLICE",
-        "subtype": "POLICE_HIDING",
-        "nThumbsUp": 1,
-        "pub_ts": "2026-03-01T17:06:19Z",
-        "comment_first_ts": "2026-03-01T17:14:47Z",
-        "comment_last_ts": "2026-03-01T17:14:47Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          144.882804,
-          -37.686097
-        ]
-      },
-      "properties": {
-        "id": "alert-214006814/c5c7a2dd-2eec-43d4-a7de-987af19a95e8",
-        "city": "Tullamarine",
-        "street": "SR39 - Mickleham Rd",
-        "reportRating": 3,
-        "reliability": 5,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "",
-        "pub_ts": "2026-03-01T17:22:26Z"
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:30:50Z"
       }
     },
     {
@@ -822,11 +1077,14 @@
         "city": "Campbellfield",
         "street": "SR55 - Sydney Rd",
         "reportRating": 1,
-        "reliability": 6,
+        "reliability": 7,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_HIDING",
-        "pub_ts": "2026-03-01T17:27:56Z"
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:27:56Z",
+        "comment_first_ts": "2026-03-01T17:42:27Z",
+        "comment_last_ts": "2026-03-01T17:42:27Z"
       }
     },
     {
@@ -843,11 +1101,56 @@
         "city": "Campbellfield",
         "street": "SR55 - Sydney Rd",
         "reportRating": 1,
-        "reliability": 5,
+        "reliability": 7,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_HIDING",
-        "pub_ts": "2026-03-01T17:27:13Z"
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:27:13Z",
+        "comment_first_ts": "2026-03-01T17:42:24Z",
+        "comment_last_ts": "2026-03-01T17:42:24Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          144.957431,
+          -37.68522
+        ]
+      },
+      "properties": {
+        "id": "alert-214112716/6563b2de-b277-4b71-b46e-a83f53b2173b",
+        "city": "Campbellfield",
+        "street": "SR55 - Sydney Rd",
+        "reportRating": 1,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:53:21Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          144.978686,
+          -37.443715
+        ]
+      },
+      "properties": {
+        "id": "alert-214249615/5630a1ce-bcce-47f5-95f0-817e86ddd053",
+        "city": "Beveridge",
+        "street": "B75 - Northern Hwy",
+        "reportRating": 1,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:52:34Z"
       }
     },
     {
@@ -885,11 +1188,98 @@
         "city": "Laverton North",
         "street": "B94 - Dohertys Rd",
         "reportRating": 0,
+        "reliability": 8,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:09:03Z",
+        "comment_first_ts": "2026-03-01T17:53:56Z",
+        "comment_last_ts": "2026-03-01T17:53:56Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          144.307319,
+          -38.208418
+        ]
+      },
+      "properties": {
+        "id": "alert-214112857/3aef7099-e002-41c7-b893-7e6bbb3a83e8",
+        "city": "Waurn Ponds",
+        "street": "Monterey Dr",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:54:51Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.336691,
+          -33.419941
+        ]
+      },
+      "properties": {
+        "id": "alert-214078575/5130fb4e-0405-47a3-b9ab-abaf6347747b",
+        "city": "Gosford",
+        "street": "Racecourse Rd",
+        "reportRating": 0,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:50:34Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.331525,
+          -33.419382
+        ]
+      },
+      "properties": {
+        "id": "alert-214146253/17f920ec-137b-4f34-bb43-2b8f56cf5fe8",
+        "city": "Gosford",
+        "street": "Racecourse Rd",
+        "reportRating": 0,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:50:57Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.229633,
+          -33.344541
+        ]
+      },
+      "properties": {
+        "id": "alert-213720243/285540e8-9b88-4737-8d55-05abcec3052b",
+        "city": "Peats Ridge",
+        "street": "TR33 - Peats Ridge Rd",
+        "reportRating": 1,
         "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T17:09:03Z"
+        "pub_ts": "2026-03-01T16:14:39Z"
       }
     },
     {
@@ -897,20 +1287,92 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.010403,
-          -32.133136
+          151.4205,
+          -33.426665
         ]
       },
       "properties": {
-        "id": "alert-214096062/f20d51e5-3a7e-4aa4-ac28-63d0152254a2",
-        "city": "Kelmscott",
-        "street": "Railway Av",
-        "reportRating": 0,
+        "id": "alert-214129250/4e77e624-6da0-4677-85a6-c8c0967e836f",
+        "city": "Erina Heights",
+        "street": "A49 - Central Coast Hwy",
+        "reportRating": 1,
+        "reliability": 8,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T17:25:55Z",
+        "comment_first_ts": "2026-03-01T17:30:05Z",
+        "comment_last_ts": "2026-03-01T17:52:40Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.418588,
+          -33.23303
+        ]
+      },
+      "properties": {
+        "id": "alert-214259189/02e1cc2b-229d-4dd3-8948-96d83562090b",
+        "city": "Jilliby",
+        "street": "M1 - Pacific Mwy",
+        "reportRating": 5,
+        "reliability": 10,
+        "confidence": 3,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 6,
+        "pub_ts": "2026-03-01T17:50:19Z",
+        "comment_first_ts": "2026-03-01T17:50:58Z",
+        "comment_last_ts": "2026-03-01T17:55:50Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.398648,
+          -32.725651
+        ]
+      },
+      "properties": {
+        "id": "alert-213714927/fef62b70-e938-46d5-8e2c-32402f9ac594",
+        "city": "Allandale",
+        "street": "Lovedale Rd",
+        "reportRating": 1,
+        "reliability": 8,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 3,
+        "pub_ts": "2026-03-01T16:13:33Z",
+        "comment_first_ts": "2026-03-01T17:26:33Z",
+        "comment_last_ts": "2026-03-01T17:42:31Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.400277,
+          -32.725127
+        ]
+      },
+      "properties": {
+        "id": "alert-214037174/c9349c49-3d08-436b-9d2a-9eb3bd2a476e",
+        "city": "Allandale",
+        "street": "Lovedale Rd",
+        "reportRating": 3,
         "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
-        "subtype": "",
-        "pub_ts": "2026-03-01T17:25:34Z"
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:30:16Z"
       }
     },
     {
@@ -918,20 +1380,68 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.947678,
-          -31.877923
+          151.198291,
+          -32.59667
         ]
       },
       "properties": {
-        "id": "alert-213068931/40be923b-0ef6-4e46-9f20-4b0ee48edba8",
-        "city": "Lockridge",
-        "street": "Weddell Rd",
+        "id": "alert-214043603/f834df53-0938-422e-be5a-3c605ea4f4b7",
+        "city": "Whittingham",
+        "street": "A15 - New England Hwy",
+        "reportRating": 1,
+        "reliability": 8,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 2,
+        "pub_ts": "2026-03-01T17:43:41Z",
+        "comment_first_ts": "2026-03-01T17:45:20Z",
+        "comment_last_ts": "2026-03-01T17:53:49Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.199081,
+          -32.598872
+        ]
+      },
+      "properties": {
+        "id": "alert-214229571/e1b99f50-9a05-4a7c-903a-2bbe3813a6af",
+        "city": "Whittingham",
+        "street": "A15 - New England Hwy",
+        "reportRating": 2,
+        "reliability": 10,
+        "confidence": 3,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 7,
+        "pub_ts": "2026-03-01T17:50:08Z",
+        "comment_first_ts": "2026-03-01T17:51:17Z",
+        "comment_last_ts": "2026-03-01T17:55:37Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.993988,
+          -34.140774
+        ]
+      },
+      "properties": {
+        "id": "alert-214093173/71f8652b-3f2e-44ac-9799-c30234cc94ea",
+        "city": "Waterfall",
+        "street": "A1 - Princes Hwy",
         "reportRating": 1,
         "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T14:51:23Z"
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:45:38Z"
       }
     },
     {
@@ -939,20 +1449,89 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.944664,
-          -31.866408
+          150.994409,
+          -34.142078
         ]
       },
       "properties": {
-        "id": "alert-213854269/481b5134-c937-4f20-8b76-550cab51fc8b",
-        "city": "Beechboro",
-        "street": "Altone Rd",
+        "id": "alert-213987542/25ab0dc1-f2e1-427d-90fc-ce8b8c124da3",
+        "city": "Waterfall",
+        "street": "A1 - Princes Hwy",
+        "reportRating": 2,
+        "reliability": 10,
+        "confidence": 5,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "nThumbsUp": 13,
+        "pub_ts": "2026-03-01T17:28:58Z",
+        "comment_first_ts": "2026-03-01T17:29:21Z",
+        "comment_last_ts": "2026-03-01T17:52:38Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.118848,
+          -33.72362
+        ]
+      },
+      "properties": {
+        "id": "alert-213883889/a0c4e32d-3655-4bc0-880a-269c56df4ba2",
+        "city": "Warrawee",
+        "street": "A1 - Pacific Hwy",
+        "reportRating": 2,
+        "reliability": 8,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 2,
+        "pub_ts": "2026-03-01T17:07:54Z",
+        "comment_first_ts": "2026-03-01T17:21:13Z",
+        "comment_last_ts": "2026-03-01T17:29:56Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.716126,
+          -34.052285
+        ]
+      },
+      "properties": {
+        "id": "alert-214149078/8d0fb6d8-82c3-44a2-a1b3-56c13018e9d5",
+        "city": "Elderslie 2570",
+        "street": "Hilder St",
+        "reportRating": 0,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:30:14Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.734605,
+          -34.045589
+        ]
+      },
+      "properties": {
+        "id": "alert-214155774/fdbafdb2-7b7b-4bc6-9338-56d9cff8481a",
+        "city": "Narellan",
+        "street": "Richardson Rd",
         "reportRating": 0,
         "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T16:23:50Z"
+        "pub_ts": "2026-03-01T17:48:35Z"
       }
     },
     {
@@ -960,23 +1539,68 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.942825,
-          -31.87557
+          150.73387,
+          -34.044307
         ]
       },
       "properties": {
-        "id": "alert-213201981/8a49c0b7-0561-4787-8c2e-67e33185a92d",
-        "city": "Beechboro",
-        "street": "Benara Rd",
+        "id": "alert-214150893/0a81fb22-5bb8-464c-b9c3-8f0e1f4291f8",
+        "city": "Narellan",
+        "street": "Richardson Rd",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:48:50Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.734605,
+          -34.045589
+        ]
+      },
+      "properties": {
+        "id": "alert-214234317/68f6256d-47ee-4348-9989-fedac2db052b",
+        "city": "Narellan",
+        "street": "Richardson Rd",
+        "reportRating": 0,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:48:35Z",
+        "comment_first_ts": "2026-03-01T17:49:19Z",
+        "comment_last_ts": "2026-03-01T17:49:19Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.779552,
+          -34.058128
+        ]
+      },
+      "properties": {
+        "id": "alert-214175207/4e550d14-adcc-4ef5-b32e-ded5546f3022",
+        "city": "Currans Hill",
+        "street": "A9 - Narellan Rd",
         "reportRating": 1,
         "reliability": 10,
         "confidence": 3,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 6,
-        "pub_ts": "2026-03-01T14:52:46Z",
-        "comment_first_ts": "2026-03-01T15:05:39Z",
-        "comment_last_ts": "2026-03-01T16:55:24Z"
+        "nThumbsUp": 7,
+        "pub_ts": "2026-03-01T17:48:31Z",
+        "comment_first_ts": "2026-03-01T17:49:55Z",
+        "comment_last_ts": "2026-03-01T17:52:31Z"
       }
     },
     {
@@ -984,89 +1608,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.878094,
-          -31.947603
+          150.781421,
+          -34.059968
         ]
       },
       "properties": {
-        "id": "alert-213122239/068a0fa4-1b44-4de6-bfa7-e230645ceb10",
-        "city": "",
-        "street": "SR8 - Graham Farmer Fwy",
+        "id": "alert-212797666/30dd9e1b-4a1c-451b-a925-bf7821a110fe",
+        "city": "Mount Annan",
+        "street": "A9 - Narellan Rd",
         "reportRating": 0,
-        "reliability": 9,
-        "confidence": 1,
-        "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T14:41:27Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          115.875422,
-          -31.947827
-        ]
-      },
-      "properties": {
-        "id": "alert-212777404/d33fc2ab-cbfb-40d0-b005-544571ea2965",
-        "city": "",
-        "street": "SR8 - Graham Farmer Fwy",
-        "reportRating": 0,
-        "reliability": 9,
-        "confidence": 1,
-        "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T13:50:22Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          115.877198,
-          -31.94773
-        ]
-      },
-      "properties": {
-        "id": "alert-213981776/a265ef44-68e1-46c6-ae6c-b90b2529ccc7",
-        "city": "",
-        "street": "SR8 - Graham Farmer Fwy",
-        "reportRating": 1,
-        "reliability": 7,
-        "confidence": 1,
-        "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 2,
-        "pub_ts": "2026-03-01T17:22:07Z",
-        "comment_first_ts": "2026-03-01T17:30:40Z",
-        "comment_last_ts": "2026-03-01T17:32:08Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          115.877836,
-          -31.947731
-        ]
-      },
-      "properties": {
-        "id": "alert-213914953/82d167ee-5160-4945-ae9f-50e126dab745",
-        "city": "",
-        "street": "SR8 - Graham Farmer Fwy",
-        "reportRating": 2,
         "reliability": 10,
-        "confidence": 1,
+        "confidence": 2,
         "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 5,
-        "pub_ts": "2026-03-01T16:49:00Z",
-        "comment_first_ts": "2026-03-01T17:01:16Z",
-        "comment_last_ts": "2026-03-01T17:16:37Z"
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T13:58:35Z"
       }
     },
     {
@@ -1074,20 +1629,206 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.794852,
-          -32.114514
+          150.729822,
+          -34.032251
         ]
       },
       "properties": {
-        "id": "alert-212943300/48576a55-ee0e-4aad-8cfe-a4f00b662487",
-        "city": "",
-        "street": "NR1 - Stock Rd",
-        "reportRating": 0,
+        "id": "alert-214254588/3b9919c5-a0ac-4678-b0d6-823e578a6732",
+        "city": "Harrington Park",
+        "street": "A9 - The Northern Rd",
+        "reportRating": 1,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:53:42Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.734008,
+          -34.036781
+        ]
+      },
+      "properties": {
+        "id": "alert-213998415/2f7fae03-5271-482d-8ff9-6473b1f5d670",
+        "city": "Narellan",
+        "street": "A9 - The Northern Rd",
+        "reportRating": 4,
+        "reliability": 8,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:38:24Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.783479,
+          -34.061034
+        ]
+      },
+      "properties": {
+        "id": "alert-212603812/7cc3bd51-bfcc-43ff-9f35-05811781c532",
+        "city": "Mount Annan",
+        "street": "A9 - Narellan Rd",
+        "reportRating": 5,
+        "reliability": 10,
+        "confidence": 5,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 27,
+        "pub_ts": "2026-03-01T13:25:29Z",
+        "comment_first_ts": "2026-03-01T13:28:05Z",
+        "comment_last_ts": "2026-03-01T17:54:54Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.728034,
+          -34.030257
+        ]
+      },
+      "properties": {
+        "id": "alert-214002797/a8972bcd-cf8b-41e6-a32f-617caed3cf61",
+        "city": "Narellan",
+        "street": "A9 - The Northern Rd",
+        "reportRating": 4,
+        "reliability": 10,
+        "confidence": 3,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 9,
+        "pub_ts": "2026-03-01T17:32:38Z",
+        "comment_first_ts": "2026-03-01T17:38:10Z",
+        "comment_last_ts": "2026-03-01T17:55:31Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.728577,
+          -34.030607
+        ]
+      },
+      "properties": {
+        "id": "alert-213998915/5bdda36b-d11a-48ec-a900-86d7c6370ec4",
+        "city": "Harrington Park",
+        "street": "A9 - The Northern Rd",
+        "reportRating": 1,
+        "reliability": 10,
+        "confidence": 3,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "nThumbsUp": 7,
+        "pub_ts": "2026-03-01T17:43:16Z",
+        "comment_first_ts": "2026-03-01T17:44:24Z",
+        "comment_last_ts": "2026-03-01T17:55:51Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.737119,
+          -34.161907
+        ]
+      },
+      "properties": {
+        "id": "alert-214028688/dc28eec5-f4a8-4d33-bc57-4de54c4309b1",
+        "city": "Douglas Park",
+        "street": "M31 - Hume Mwy",
+        "reportRating": 3,
+        "reliability": 10,
+        "confidence": 5,
+        "type": "POLICE",
+        "subtype": "",
+        "nThumbsUp": 32,
+        "pub_ts": "2026-03-01T17:38:15Z",
+        "comment_first_ts": "2026-03-01T17:40:54Z",
+        "comment_last_ts": "2026-03-01T17:55:06Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.757789,
+          -34.117221
+        ]
+      },
+      "properties": {
+        "id": "alert-214101997/4d5b8e0c-b309-415b-ab29-8536f5ce0778",
+        "city": "Menangle Park",
+        "street": "M31 - Hume Mwy",
+        "reportRating": 3,
+        "reliability": 10,
+        "confidence": 5,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 17,
+        "pub_ts": "2026-03-01T17:36:05Z",
+        "comment_first_ts": "2026-03-01T17:36:52Z",
+        "comment_last_ts": "2026-03-01T17:55:37Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.565398,
+          -33.509484
+        ]
+      },
+      "properties": {
+        "id": "alert-213408042/70fc98d3-e583-416d-a09c-2b3be0942e31",
+        "city": "Bilpin",
+        "street": "B59 - Bells Line of Rd",
+        "reportRating": 3,
         "reliability": 7,
+        "confidence": 1,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 2,
+        "pub_ts": "2026-03-01T15:33:07Z",
+        "comment_first_ts": "2026-03-01T15:36:27Z",
+        "comment_last_ts": "2026-03-01T17:37:22Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          145.222111,
+          -37.977915
+        ]
+      },
+      "properties": {
+        "id": "alert-214070674/1d8c8263-7765-4ddb-9763-37fd3f8f5afa",
+        "city": "Dandenong",
+        "street": "SR9 - Stud Rd",
+        "reportRating": 0,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T14:12:38Z"
+        "pub_ts": "2026-03-01T17:18:47Z"
       }
     },
     {
@@ -1095,23 +1836,44 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.794708,
-          -32.114519
+          145.135184,
+          -38.193931
         ]
       },
       "properties": {
-        "id": "alert-214079252/be6b3e13-a8fb-432f-ae85-9d5206f11cd3",
-        "city": "",
-        "street": "NR1 - Stock Rd",
-        "reportRating": 5,
-        "reliability": 7,
+        "id": "alert-214087395/cba71b2e-4658-4a32-a808-1b14d8ed8b00",
+        "city": "Frankston South",
+        "street": "C784 - Moorooduc Hwy",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:37:51Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          145.076884,
+          -38.204505
+        ]
+      },
+      "properties": {
+        "id": "alert-214174251/389ee827-33db-4479-bfb6-2f170c865cc6",
+        "city": "Mount Eliza",
+        "street": "SR3 - Nepean Hwy",
+        "reportRating": 2,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_HIDING",
         "nThumbsUp": 1,
-        "pub_ts": "2026-03-01T17:06:42Z",
-        "comment_first_ts": "2026-03-01T17:23:59Z",
-        "comment_last_ts": "2026-03-01T17:23:59Z"
+        "pub_ts": "2026-03-01T17:38:20Z",
+        "comment_first_ts": "2026-03-01T17:47:46Z",
+        "comment_last_ts": "2026-03-01T17:47:46Z"
       }
     },
     {
@@ -1119,44 +1881,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          115.82395,
-          -31.974589
+          145.132393,
+          -38.19703
         ]
       },
       "properties": {
-        "id": "alert-213956486/ddcd1105-38d9-40ca-8544-f96b202ba2be",
-        "city": "Crawley",
-        "street": "SR5 - Mounts Bay Rd",
-        "reportRating": 0,
-        "reliability": 7,
+        "id": "alert-214078695/350debd9-47e3-4908-926b-90a57cb8b451",
+        "city": "Baxter",
+        "street": "C784 - Moorooduc Hwy",
+        "reportRating": 3,
+        "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T17:15:16Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          115.837662,
-          -31.888707
-        ]
-      },
-      "properties": {
-        "id": "alert-214096055/3138e9a9-6ab4-42b7-8baa-c87145937d01",
-        "city": "Balcatta",
-        "street": "SR60 - Wanneroo Rd",
-        "reportRating": 2,
-        "reliability": 9,
-        "confidence": 2,
-        "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 4,
-        "pub_ts": "2026-03-01T17:25:32Z",
-        "comment_first_ts": "2026-03-01T17:29:06Z",
-        "comment_last_ts": "2026-03-01T17:33:39Z"
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:51:39Z"
       }
     },
     {
@@ -1174,13 +1912,13 @@
         "street": "C743 - Bulla Rd",
         "reportRating": 1,
         "reliability": 10,
-        "confidence": 2,
+        "confidence": 4,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 5,
+        "nThumbsUp": 9,
         "pub_ts": "2026-03-01T13:45:34Z",
         "comment_first_ts": "2026-03-01T15:22:07Z",
-        "comment_last_ts": "2026-03-01T17:24:01Z"
+        "comment_last_ts": "2026-03-01T17:52:51Z"
       }
     },
     {
@@ -1202,6 +1940,48 @@
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
         "pub_ts": "2026-03-01T17:16:41Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          143.583227,
+          -38.34721
+        ]
+      },
+      "properties": {
+        "id": "alert-214052738/8ddadf22-b36a-4d84-b85b-2cf53c584b2a",
+        "city": "Colac",
+        "street": "Eaves St",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:35:56Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          143.608957,
+          -38.327919
+        ]
+      },
+      "properties": {
+        "id": "alert-214190186/90599889-08a2-4597-9dc9-76b33cbf83f8",
+        "city": "Colac",
+        "street": "",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:51:30Z"
       }
     },
     {
@@ -1233,6 +2013,48 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          151.167144,
+          -32.548713
+        ]
+      },
+      "properties": {
+        "id": "alert-214122449/caea63e7-78b8-4c58-8652-b7ae31ac21e3",
+        "city": "Singleton Heights",
+        "street": "Blaxland Av",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "pub_ts": "2026-03-01T17:54:30Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.152207,
+          -32.548896
+        ]
+      },
+      "properties": {
+        "id": "alert-214170765/a3dddd0c-a53d-467c-8260-f3fd8f830970",
+        "city": "McDougalls Hill",
+        "street": "A15 - New England Hwy",
+        "reportRating": 1,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "",
+        "pub_ts": "2026-03-01T17:53:32Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           150.824999,
           -32.404431
         ]
@@ -1254,23 +2076,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          150.973108,
-          -32.396116
+          151.094854,
+          -32.484161
         ]
       },
       "properties": {
-        "id": "alert-213967613/1d2616b6-7d85-4e4b-ae5f-6a4749d02e08",
-        "city": "Muswellbrook",
+        "id": "alert-213948948/05cd4857-a395-4327-80cc-a3cb72fc2917",
+        "city": "Camberwell",
         "street": "A15 - New England Hwy",
-        "reportRating": 0,
-        "reliability": 10,
-        "confidence": 2,
+        "reportRating": 1,
+        "reliability": 6,
+        "confidence": 0,
         "type": "POLICE",
         "subtype": "",
-        "nThumbsUp": 4,
-        "pub_ts": "2026-03-01T17:27:49Z",
-        "comment_first_ts": "2026-03-01T17:30:24Z",
-        "comment_last_ts": "2026-03-01T17:34:46Z"
+        "pub_ts": "2026-03-01T17:35:12Z"
       }
     },
     {
@@ -1278,71 +2097,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          150.954069,
-          -32.336684
+          150.973076,
+          -32.396092
         ]
       },
       "properties": {
-        "id": "alert-213961359/cbf7ee38-1cf5-4c06-aeac-045787b9b577",
+        "id": "alert-214058008/c0ff4110-a332-42f6-93a7-f7846c63f50b",
         "city": "Muswellbrook",
         "street": "A15 - New England Hwy",
         "reportRating": 3,
-        "reliability": 10,
+        "reliability": 7,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "",
-        "nThumbsUp": 3,
-        "pub_ts": "2026-03-01T17:13:49Z",
-        "comment_first_ts": "2026-03-01T17:23:56Z",
-        "comment_last_ts": "2026-03-01T17:32:31Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          150.904662,
-          -32.282625
-        ]
-      },
-      "properties": {
-        "id": "alert-214104277/27885a76-0062-4fd3-aa40-5e65e3308e93",
-        "city": "Muswellbrook",
-        "street": "A15 - New England Hwy",
-        "reportRating": 4,
-        "reliability": 9,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "",
-        "nThumbsUp": 1,
-        "pub_ts": "2026-03-01T17:11:41Z",
-        "comment_first_ts": "2026-03-01T17:13:26Z",
-        "comment_last_ts": "2026-03-01T17:13:26Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          149.960629,
-          -34.734511
-        ]
-      },
-      "properties": {
-        "id": "alert-211601965/74d1e7d4-a99c-4eaa-b19c-353f7e82a7b0",
-        "city": "Marulan",
-        "street": "M31 - Hume Hwy",
-        "reportRating": 0,
-        "reliability": 10,
-        "confidence": 5,
-        "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 42,
-        "pub_ts": "2026-03-01T08:44:14Z",
-        "comment_first_ts": "2026-03-01T08:47:04Z",
-        "comment_last_ts": "2026-03-01T16:56:27Z"
+        "pub_ts": "2026-03-01T17:36:11Z"
       }
     },
     {
@@ -1374,20 +2142,23 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          149.93729,
-          -33.439777
+          149.960629,
+          -34.734511
         ]
       },
       "properties": {
-        "id": "alert-214009312/d8558d77-af4c-433d-9483-9becc42e10ef",
-        "city": "Meadow Flat",
-        "street": "A32 - Great Western Hwy",
-        "reportRating": 2,
-        "reliability": 5,
-        "confidence": 0,
+        "id": "alert-211601965/74d1e7d4-a99c-4eaa-b19c-353f7e82a7b0",
+        "city": "Marulan",
+        "street": "M31 - Hume Hwy",
+        "reportRating": 0,
+        "reliability": 10,
+        "confidence": 5,
         "type": "POLICE",
-        "subtype": "",
-        "pub_ts": "2026-03-01T17:00:40Z"
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 45,
+        "pub_ts": "2026-03-01T08:44:14Z",
+        "comment_first_ts": "2026-03-01T08:47:04Z",
+        "comment_last_ts": "2026-03-01T17:54:42Z"
       }
     },
     {
@@ -1416,6 +2187,54 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          145.779076,
+          -38.087088
+        ]
+      },
+      "properties": {
+        "id": "alert-214067993/ffad507d-2442-40fb-a93b-1ef1e9013f52",
+        "city": "Longwarry",
+        "street": "M1 - Princes Fwy",
+        "reportRating": 1,
+        "reliability": 10,
+        "confidence": 2,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 8,
+        "pub_ts": "2026-03-01T17:42:00Z",
+        "comment_first_ts": "2026-03-01T17:47:27Z",
+        "comment_last_ts": "2026-03-01T17:55:55Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          145.646647,
+          -38.071433
+        ]
+      },
+      "properties": {
+        "id": "alert-213988620/bb85143a-f31e-4c57-b31e-aecd37adf9a2",
+        "city": "Tynong North",
+        "street": "M1 - Princes Fwy",
+        "reportRating": 0,
+        "reliability": 7,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_HIDING",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:40:04Z",
+        "comment_first_ts": "2026-03-01T17:56:00Z",
+        "comment_last_ts": "2026-03-01T17:56:00Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           145.563302,
           -38.070105
         ]
@@ -1426,13 +2245,13 @@
         "street": "M1 - Princes Fwy",
         "reportRating": 3,
         "reliability": 10,
-        "confidence": 2,
+        "confidence": 5,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "nThumbsUp": 5,
+        "nThumbsUp": 12,
         "pub_ts": "2026-03-01T16:55:20Z",
         "comment_first_ts": "2026-03-01T17:04:23Z",
-        "comment_last_ts": "2026-03-01T17:34:07Z"
+        "comment_last_ts": "2026-03-01T17:56:08Z"
       }
     },
     {
@@ -1440,41 +2259,23 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          138.494352,
-          -35.182083
+          117.178258,
+          -33.906299
         ]
       },
       "properties": {
-        "id": "alert-214016751/0a15408e-961e-46b8-9860-020ae0a1719b",
-        "city": "Old Noarlunga",
-        "street": "A13 - Main South Rd",
-        "reportRating": 2,
-        "reliability": 5,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "",
-        "pub_ts": "2026-03-01T17:22:54Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          138.508999,
-          -35.112031
-        ]
-      },
-      "properties": {
-        "id": "alert-214110338/7cdf110f-818e-4d05-8ac6-9c5774d5405c",
-        "city": "Morphett Vale",
-        "street": "M2 - Southern Exp",
-        "reportRating": 2,
-        "reliability": 5,
+        "id": "alert-212948134/aea06b71-63db-4cc9-a131-f0d64ffc3e36",
+        "city": "",
+        "street": "SR30 - Albany Hwy",
+        "reportRating": 0,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T17:28:27Z"
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T14:12:08Z",
+        "comment_first_ts": "2026-03-01T14:16:23Z",
+        "comment_last_ts": "2026-03-01T14:16:23Z"
       }
     },
     {
@@ -1482,23 +2283,71 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          116.145207,
-          -32.242316
+          152.993821,
+          -30.465433
         ]
       },
       "properties": {
-        "id": "alert-213245130/0a8edd83-fabb-40cf-aae6-3a41c4339fc1",
-        "city": "",
-        "street": "SR30 - Albany Hwy",
-        "reportRating": 2,
+        "id": "alert-213726384/fa7435bc-c6d9-4d1d-a05c-612fa1054409",
+        "city": "Raleigh",
+        "street": "B78 - Waterfall Way",
+        "reportRating": 3,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T16:29:11Z",
+        "comment_first_ts": "2026-03-01T17:54:48Z",
+        "comment_last_ts": "2026-03-01T17:54:48Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.273519,
+          -27.194178
+        ]
+      },
+      "properties": {
+        "id": "alert-213972561/f3ba644b-13e7-45f8-8757-2f441cecb674",
+        "city": "Dalby",
+        "street": "A2 - Drayton St",
+        "reportRating": 0,
+        "reliability": 6,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:26:56Z",
+        "comment_first_ts": "2026-03-01T17:43:53Z",
+        "comment_last_ts": "2026-03-01T17:43:53Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          149.172225,
+          -21.147956
+        ]
+      },
+      "properties": {
+        "id": "alert-213070765/d8a45136-2321-4a78-81e5-d365b8dbcbde",
+        "city": "Mackay",
+        "street": "A1 - Nebo Rd",
+        "reportRating": 0,
         "reliability": 7,
         "confidence": 1,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
         "nThumbsUp": 2,
-        "pub_ts": "2026-03-01T14:50:29Z",
-        "comment_first_ts": "2026-03-01T15:23:06Z",
-        "comment_last_ts": "2026-03-01T16:41:13Z"
+        "pub_ts": "2026-03-01T14:23:31Z",
+        "comment_first_ts": "2026-03-01T17:39:35Z",
+        "comment_last_ts": "2026-03-01T17:49:51Z"
       }
     },
     {
@@ -1506,20 +2355,62 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.945052,
-          -24.9724
+          148.168769,
+          -23.519038
         ]
       },
       "properties": {
-        "id": "alert-213290039/7a069d44-0693-4aed-a4e6-a517b3ebd31b",
-        "city": "Gin Gin",
+        "id": "alert-213808461/25818310-07ec-4fa5-b1d2-4436478b6356",
+        "city": "Emerald",
+        "street": "Opal St",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T16:54:50Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          148.538461,
+          -23.605808
+        ]
+      },
+      "properties": {
+        "id": "alert-214012817/9af97afd-330f-440d-99d8-12bad5df0ed6",
+        "city": "Comet",
+        "street": "A4 - Capricorn Hwy",
+        "reportRating": 0,
+        "reliability": 5,
+        "confidence": 0,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "pub_ts": "2026-03-01T17:34:41Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          147.778056,
+          -19.908207
+        ]
+      },
+      "properties": {
+        "id": "alert-214150483/45cc91ac-9d8b-43ad-bf9d-f6e9f9d891d9",
+        "city": "Guthalungra",
         "street": "A1 - Bruce Hwy",
         "reportRating": 0,
-        "reliability": 7,
+        "reliability": 5,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T15:00:42Z"
+        "pub_ts": "2026-03-01T17:44:43Z"
       }
     },
     {
@@ -1527,62 +2418,47 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          151.945358,
-          -24.973744
+          148.989527,
+          -21.246351
         ]
       },
       "properties": {
-        "id": "alert-213917294/49f4bc7b-1afc-4769-8d2a-558dc6e84fe2",
-        "city": "Gin Gin",
+        "id": "alert-213433222/9ea45f5c-5ce7-451d-a07d-8a11b87dd19e",
+        "city": "Eton",
+        "street": "SR70 - Peak Downs Hwy",
+        "reportRating": 0,
+        "reliability": 10,
+        "confidence": 3,
+        "type": "POLICE",
+        "subtype": "POLICE_WITH_MOBILE_CAMERA",
+        "nThumbsUp": 6,
+        "pub_ts": "2026-03-01T15:39:29Z",
+        "comment_first_ts": "2026-03-01T16:11:08Z",
+        "comment_last_ts": "2026-03-01T17:50:24Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          146.377311,
+          -19.029882
+        ]
+      },
+      "properties": {
+        "id": "alert-214033655/e8ba1ae9-147f-4452-b8c6-f293ecf96377",
+        "city": "Rollingstone",
         "street": "A1 - Bruce Hwy",
         "reportRating": 0,
-        "reliability": 5,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T17:07:45Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          151.288495,
-          -23.938537
-        ]
-      },
-      "properties": {
-        "id": "alert-213806347/7b19f25a-383b-4486-bc24-b7346d1ff239",
-        "city": "O'Connell",
-        "street": "SR58 - Gladstone Benarby Rd",
-        "reportRating": 2,
-        "reliability": 5,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T16:36:27Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          150.499396,
-          -23.2548
-        ]
-      },
-      "properties": {
-        "id": "alert-213932590/6e87c352-440f-49f1-89fc-272bf63b4f90",
-        "city": "",
-        "street": "A1 - Yaamba Rd",
-        "reportRating": 0,
-        "reliability": 5,
-        "confidence": 0,
-        "type": "POLICE",
-        "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T17:16:20Z"
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T17:45:09Z",
+        "comment_first_ts": "2026-03-01T17:52:42Z",
+        "comment_last_ts": "2026-03-01T17:52:42Z"
       }
     },
     {
@@ -1686,11 +2562,14 @@
         "city": "",
         "street": "M1 - Princes Fwy",
         "reportRating": 0,
-        "reliability": 5,
+        "reliability": 6,
         "confidence": 0,
         "type": "POLICE",
         "subtype": "POLICE_WITH_MOBILE_CAMERA",
-        "pub_ts": "2026-03-01T16:35:01Z"
+        "nThumbsUp": 1,
+        "pub_ts": "2026-03-01T16:35:01Z",
+        "comment_first_ts": "2026-03-01T17:53:59Z",
+        "comment_last_ts": "2026-03-01T17:53:59Z"
       }
     }
   ]
