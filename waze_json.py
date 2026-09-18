@@ -17,7 +17,12 @@ Behavior
 
 Requirements
 ------------
-pip install requests
+pip install -r requirements.txt
+python -m playwright install chromium
+
+Waze requires a reCAPTCHA Enterprise token (x-recaptcha-token header) on georss
+requests. A token is captured from the live map in headless Chromium and refreshed
+on 403.
 
 Example
 -------
@@ -40,8 +45,10 @@ from datetime import datetime, timezone
 
 
 WAZE_URL = "https://www.waze.com/live-map/api/georss"
+LIVE_MAP_URL = "https://www.waze.com/live-map/directions?latlng=-33.8688%2C151.2093&zoom=14"
 HTTP_TIMEOUT = 12  # seconds
-DEFAULT_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:142.0) Gecko/20100101 Firefox/142.0"}
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{major}.0.0.0 Safari/537.36"
+MAX_ERROR_RATE = 0.1  # fail the run if more than this fraction of tile queries error
 
 
 # ------------------------------ Predefined regions ------------------------------
@@ -135,6 +142,54 @@ def tile_intersects_bbox(tile: Tile, left: float, right: float, bottom: float, t
 
 # ------------------------------ Waze API ------------------------------
 
+class WazeAuthError(Exception):
+    pass
+
+
+_session = requests.Session()
+_session.headers.update({"Referer": "https://www.waze.com/live-map/"})
+
+
+def fetch_recaptcha_token() -> Tuple[str, str]:
+    """
+    Load the live map in headless Chromium and capture the x-recaptcha-token
+    header from its own georss request. Returns (token, user_agent).
+    """
+    from playwright.sync_api import sync_playwright
+
+    with sync_playwright() as pw:
+        # reCAPTCHA rejects tokens from a browser that looks automated or headless
+        browser = pw.chromium.launch(
+            headless=True,
+            channel="chromium",
+            args=["--disable-blink-features=AutomationControlled"],
+        )
+        try:
+            major = browser.version.split(".")[0]
+            user_agent = USER_AGENT.format(major=major)
+            page = browser.new_page(user_agent=user_agent)
+            with page.expect_response(lambda resp: "/live-map/api/georss" in resp.url, timeout=60_000) as resp_info:
+                page.goto(LIVE_MAP_URL, wait_until="domcontentloaded")
+            resp = resp_info.value
+            token = resp.request.headers.get("x-recaptcha-token")
+        finally:
+            browser.close()
+    if not token or resp.status != 200:
+        raise WazeAuthError(f"live map georss request was rejected ({resp.status}); reCAPTCHA token not accepted")
+    return token, user_agent
+
+
+def refresh_token() -> None:
+    print("[Auth] Fetching reCAPTCHA token from the Waze live map")
+    try:
+        token, user_agent = fetch_recaptcha_token()
+    except WazeAuthError:
+        raise
+    except Exception as e:
+        raise WazeAuthError(f"could not load the live map for a reCAPTCHA token: {e}") from e
+    _session.headers.update({"x-recaptcha-token": token, "User-Agent": user_agent})
+
+
 def query_waze_alerts(left: float, right: float, bottom: float, top: float, env: str) -> List[dict]:
     """
     Query Waze alerts for a bbox; returns the list of alert objects.
@@ -147,7 +202,14 @@ def query_waze_alerts(left: float, right: float, bottom: float, top: float, env:
         "bottom": f"{bottom:.10f}",
         "top": f"{top:.10f}",
     }
-    r = requests.get(WAZE_URL, params=params, headers=DEFAULT_HEADERS, timeout=HTTP_TIMEOUT)
+    if "x-recaptcha-token" not in _session.headers:
+        refresh_token()
+    r = _session.get(WAZE_URL, params=params, timeout=HTTP_TIMEOUT)
+    if r.status_code == 403:
+        refresh_token()
+        r = _session.get(WAZE_URL, params=params, timeout=HTTP_TIMEOUT)
+        if r.status_code == 403:
+            raise WazeAuthError("403 Forbidden from georss with a fresh reCAPTCHA token")
     r.raise_for_status()
     try:
         data = r.json()
@@ -195,6 +257,13 @@ def save_alerts(out_dir: Path, alerts_by_id: Dict[str, dict], filename_format: s
 
 # ------------------------------ Refinement helpers ------------------------------
 
+def check_error_rate(errors: int, queries: int) -> None:
+    """Abort before anything is saved rather than persist a mostly-empty result."""
+    if queries and errors / queries > MAX_ERROR_RATE:
+        print(f"[Error] {errors}/{queries} tile queries failed; not saving results")
+        sys.exit(1)
+
+
 def clipped_bounds_with_overlap(tile: Tile, bbox: Tuple[float, float, float, float], overlap_deg: float) -> Tuple[float, float, float, float]:
     left, right, bottom, top = bbox
     l, r, b, t = tile_bounds_latlon(tile.z, tile.x, tile.y)
@@ -223,6 +292,7 @@ def refine_to_settled(
     frontier: Set[Tile] = set(tiles_covering_bbox(base_zoom, left, right, bottom, top))
     settled: Set[Tile] = set()
 
+    queries = errors = 0
     cycle = 1
     while frontier:
         print(f"\n[Build] Cycle {cycle} | Querying {len(frontier)} tile(s)")
@@ -230,11 +300,15 @@ def refine_to_settled(
 
         for tile in sorted(frontier):
             l, r, b, t = clipped_bounds_with_overlap(tile, bbox, overlap_deg)
+            queries += 1
             try:
                 alerts = query_waze_alerts(l, r, b, t, env)
                 count = len(alerts)
+            except WazeAuthError:
+                raise
             except Exception as e:
                 print(f"  z{tile.z}/{tile.x}/{tile.y} -> ERROR during build: {e}")
+                errors += 1
                 count = 0
 
             if count >= threshold and tile.z < max_zoom:
@@ -250,6 +324,7 @@ def refine_to_settled(
         cycle += 1
 
     print(f"\n[Build] Settled tile count: {len(settled)}")
+    check_error_rate(errors, queries)
     return settled
 
 
@@ -275,16 +350,21 @@ def extract_with_refinement(
     # Work queue starts with the currently settled tiles
     stack: List[Tile] = list(sorted(settled_tiles))
 
+    queries = errors = 0
     print(f"\n[Run] Starting extraction on {len(stack)} settled tile(s)")
     while stack:
         tile = stack.pop()
         l, r, b, t = clipped_bounds_with_overlap(tile, bbox, overlap_deg)
 
+        queries += 1
         try:
             alerts = query_waze_alerts(l, r, b, t, env)
             count = len(alerts)
+        except WazeAuthError:
+            raise
         except Exception as e:
             print(f"  z{tile.z}/{tile.x}/{tile.y} -> ERROR during run: {e}")
+            errors += 1
             alerts = []
             count = 0
 
@@ -309,6 +389,7 @@ def extract_with_refinement(
             new_settled.add(tile)
 
     print(f"[Run] New settled tile count: {len(new_settled)} | deduped alerts: {len(alerts_by_id)}")
+    check_error_rate(errors, queries)
     return new_settled, alerts_by_id
 
 
@@ -403,5 +484,8 @@ def main(return_alerts: bool = False):
 if __name__ == "__main__":
     try:
         main(return_alerts=False)
+    except WazeAuthError as e:
+        print(f"[Error] {e}; not saving results")
+        sys.exit(1)
     except KeyboardInterrupt:
         sys.exit(130)
